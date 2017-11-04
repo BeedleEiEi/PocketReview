@@ -19,37 +19,118 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+
+        <!--
         <LinearLayout
             android:id="@+id/menu1"
-            android:background="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@color/Chartreuse"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp"></LinearLayout>
+            tools:layout_editor_absoluteY="173dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Currency"
+                android:textColor="@color/Black" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/menu2"
-            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@color/Khaki"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp"></LinearLayout>
+            tools:layout_editor_absoluteY="173dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Pocket Note"
+                android:textColor="@color/Black" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/menu3"
-            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@color/PaleTurquoise"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp"></LinearLayout>
+            tools:layout_editor_absoluteY="173dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Location"
+                android:textColor="@color/Black" />
+        </LinearLayout>-->
 
 
+        <TabHost
+            android:id="@+id/tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/MediumTurquoise"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/SlateBlue" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/Currency"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
     </LinearLayout>
 
 

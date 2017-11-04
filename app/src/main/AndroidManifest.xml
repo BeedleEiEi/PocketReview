@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CurrencyTab" />
+        <activity android:name=".PocketNoteTab" />
+        <activity android:name=".LocationTab"></activity>
     </application>
 
 </manifest>
