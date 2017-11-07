@@ -19,75 +19,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-
-        <!--
-        <LinearLayout
-            android:id="@+id/menu1"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/Chartreuse"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Currency"
-                android:textColor="@color/Black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu2"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/Khaki"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Pocket Note"
-                android:textColor="@color/Black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu3"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/PaleTurquoise"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="173dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Location"
-                android:textColor="@color/Black" />
-        </LinearLayout>-->
-
-
         <TabHost
-            android:id="@+id/tabhost"
+            android:id="@+id/tabHost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/MediumTurquoise"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,8 +42,7 @@
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/SlateBlue" />
+                    android:layout_height="wrap_content"></TabWidget>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
@@ -106,32 +50,56 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/Currency"
+                        android:id="@+id/tab1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
+
+                        <ListView
+                            android:id="@+id/lvCurrency"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </ListView>
+
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/Notes"
+                        android:id="@+id/tab2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/ForestGreen"
                         android:orientation="vertical">
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Press Me"
+                            android:onClick="goCurrency"/>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 2" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/Location"
+                        android:id="@+id/tab3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="#5b89ff"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 3" />
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
-    </LinearLayout>
 
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
