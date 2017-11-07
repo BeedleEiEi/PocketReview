@@ -55,6 +55,8 @@ public class CurrencyExchange {
 
     public List<Currency> getCurrencyList() {
         List<Currency> currencyList = new ArrayList<>();
+        currencyList.add(new Currency("THB", rates.getTHB()));
+        currencyList.add(new Currency("USD", rates.getUSD()));
         currencyList.add(new Currency("AUD", rates.getAUD()));
         currencyList.add(new Currency("BGN", rates.getBGN()));
         currencyList.add(new Currency("BRL", rates.getBRL()));
@@ -87,10 +89,8 @@ public class CurrencyExchange {
 
         currencyList.add(new Currency("SEK", rates.getSEK()));
         currencyList.add(new Currency("SGD", rates.getSGD()));
-        currencyList.add(new Currency("THB", rates.getTHB()));
-        currencyList.add(new Currency("TRY", rates.getTRY()));
-        currencyList.add(new Currency("USD", rates.getUSD()));
 
+        currencyList.add(new Currency("TRY", rates.getTRY()));
         currencyList.add(new Currency("ZAR", rates.getZAR()));
 
         return currencyList;
