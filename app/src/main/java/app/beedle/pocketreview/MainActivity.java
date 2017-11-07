@@ -29,10 +29,7 @@ public class MainActivity extends ActivityGroup {
         host.setup(this.getLocalActivityManager()); //Get Activity Manager for Intent to other tabs
 
         //Tab 1
-        //TabHost.TabSpec spec = host.newTabSpec("Currency");
         TabHost.TabSpec spec = host.newTabSpec("Currency").setIndicator("Currency").setContent(new Intent(this, CurrencyTab.class));
-        /*spec.setContent(R.id.tab1);
-        spec.setIndicator("Currency");*/
         host.addTab(spec);
 
         //Tab 2
@@ -48,10 +45,10 @@ public class MainActivity extends ActivityGroup {
         host.addTab(spec);
     }
 
-    public void goCurrency(View view) { //Clicked Button
+/*    public void goCurrency(View view) { //Clicked Button
         Intent intent = new Intent(this, CurrencyTab.class);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     protected void onPause() {
