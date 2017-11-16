@@ -53,8 +53,8 @@ public class CurrencyAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View currencyItemView = layoutInflater.inflate(R.layout.currency_item, null);
 
-        TextView tvName = (TextView) currencyItemView.findViewById(R.id.tvName);
-        TextView tvRate = (TextView) currencyItemView.findViewById(R.id.tvRate);
+        TextView tvName = currencyItemView.findViewById(R.id.tvName);
+        TextView tvRate = currencyItemView.findViewById(R.id.tvRate);
         final Currency c = currencyList.get(position);
         tvName.setText(c.getName());
         tvRate.setText(Double.toString(c.getRate()));

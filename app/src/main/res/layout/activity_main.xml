@@ -66,13 +66,20 @@
                         android:id="@+id/tab2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/NavajoWhite"
+                        android:background="@color/Wheat"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="This is tab 2" />
+
+                        <ListView
+                            android:id="@+id/lvNote"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </ListView>
 
 
                     </LinearLayout>
@@ -81,7 +88,7 @@
                         android:id="@+id/tab3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#5b89ff"
+                        android:background="@color/White"
                         android:orientation="vertical">
 
                         <TextView

@@ -33,15 +33,11 @@ public class MainActivity extends ActivityGroup {
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec("Note");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Note");
-        host.addTab(spec);
+        TabHost.TabSpec spec2 = host.newTabSpec("Note").setIndicator("Note").setContent(new Intent(this, PocketNoteTab.class));
+        host.addTab(spec2);
 
         //Tab 3
-        spec = host.newTabSpec("Location");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("Location");
+        spec = host.newTabSpec("Location").setIndicator("Location").setContent(new Intent(this, LocationTab.class));
         host.addTab(spec);
     }
 

@@ -12,7 +12,5 @@ public class LocationTab extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_tab);
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear);
-        linearLayout.setBackgroundColor(Color.parseColor("#f62355"));
     }
 }
