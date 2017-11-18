@@ -1,5 +1,6 @@
 package app.beedle.pocketreview.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.beedle.pocketreview.NoteItemClickListener;
+import app.beedle.pocketreview.PocketNoteTab;
 import app.beedle.pocketreview.R;
+import app.beedle.pocketreview.entity.NoteDatabase;
+import app.beedle.pocketreview.entity.NoteEntity;
 import app.beedle.pocketreview.model.Note;
 
 /**
@@ -22,29 +26,35 @@ public class NoteAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private List<Note> noteList;
     private NoteItemClickListener noteItemClickListener;
+    private List<NoteEntity> noteEntityList;
+    private NoteEntity noteEntity;
 
 
-    public NoteAdapter(Context context, List<Note> noteList, NoteItemClickListener noteItemClickListener) {
+    /*public NoteAdapter(Context context, List<Note> noteList) {
         this.context = context;
         this.noteList = noteList;
-        this.noteItemClickListener = noteItemClickListener;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }*/
+    public NoteAdapter(Context context) {
+        this.context = context;
+
+    }
+
+    public NoteAdapter(Context applicationContext, List<NoteEntity> noteEntities) {
+        this.context = applicationContext;
+        this.noteEntityList = noteEntities;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public NoteAdapter(Context context) {
-        this.context = context;
-    }
-
     //Base Implement
-
     @Override
     public int getCount() {
-        return noteList.size();
+        return noteEntityList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return noteList.get(position);
+        return noteEntityList.get(position);
     }
 
     @Override
@@ -54,21 +64,28 @@ public class NoteAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+/*
         View noteItemView = layoutInflater.inflate(R.layout.note_tab_item, null);
 
         TextView tvTitleName = noteItemView.findViewById(R.id.noteName);
         TextView tvDesc = noteItemView.findViewById(R.id.noteDescription);
         final Note index = noteList.get(position);
         tvTitleName.setText(index.getNoteName());
-        tvDesc.setText(index.getNoteDesc());
+        tvDesc.setText(index.getNoteDesc());*/
 
-        noteItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                noteItemClickListener.onNoteItemClick(index);
-            }
-        });
+        System.out.println("asdasdasdasd>>>>>>>>>>>>>>>>>");
+        @SuppressLint("ViewHolder") View noteItemView = layoutInflater.inflate(R.layout.note_tab_item, null);
+        TextView tvTitleName = noteItemView.findViewById(R.id.noteName);
+        TextView tvDesc = noteItemView.findViewById(R.id.noteDescription);
+
+        NoteEntity index = noteEntityList.get(position);
+        tvTitleName.setText(index.getName());
+        tvDesc.setText(index.getDesc());
+        System.out.println(tvTitleName + ">>>>>>>>>>>>>>>>>>>>>>");
+
+
         return noteItemView;
+
     }
 }
 

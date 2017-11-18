@@ -49,7 +49,7 @@ public class CurrencyTab extends Activity implements Callback<CurrencyExchange>,
 
     @Override
     public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response) {
-        Toast.makeText(this, response.body().getBase(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, response.body().getBase(), Toast.LENGTH_LONG).show();
         CurrencyExchange currencyExchange = response.body();
         lvCurrency.setAdapter(new CurrencyAdapter(this, currencyExchange.getCurrencyList(), this));
     }

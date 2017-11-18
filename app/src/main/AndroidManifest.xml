@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.beedle.pocketreview">
 
-    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.INTERNET" />
+     
+
 
     <application
         android:allowBackup="true"
@@ -14,8 +16,6 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +30,8 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".LocationTab"
-            android:configChanges="orientation|screenSize">
-
-        </activity>
+            android:configChanges="orientation|screenSize"></activity>
+        <activity android:name=".add_note"></activity>
     </application>
 
 </manifest>
