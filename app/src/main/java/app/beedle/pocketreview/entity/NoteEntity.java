@@ -5,8 +5,6 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 @Entity
 public class NoteEntity implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -16,28 +14,17 @@ public class NoteEntity implements Parcelable {
 
     private String desc;
 
-    private float amount;
-
-    private String descList;
-
-
-    public String getDescList() {
-        return descList;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setDescList(String descList) {
-        this.descList = descList;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
-    public Float getPriceList() {
-        return priceList;
-    }
+    private String detail;
 
-    public void setPriceList(Float priceList) {
-        this.priceList = priceList;
-    }
-
-    private Float priceList;
+    private String amount;
 
     public NoteEntity() {
 
@@ -45,7 +32,7 @@ public class NoteEntity implements Parcelable {
 
     @Override
     public String toString() {
-        return String.format("%s - %s - %s", name, desc, amount);
+        return String.format("%s - %s - %s - %s", name, desc, detail, amount);
     }
 
     public int getId() {
@@ -72,11 +59,11 @@ public class NoteEntity implements Parcelable {
         this.desc = desc;
     }
 
-    public float getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -88,16 +75,18 @@ public class NoteEntity implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeString(this.name);
         dest.writeString(this.desc);
-        dest.writeFloat(this.amount);
-        dest.writeString(this.descList);
+        dest.writeString(this.detail);
+        dest.writeString(this.amount);
     }
 
     public NoteEntity(Parcel in) {
         this.id = in.readInt();
+        this.name = in.readString();
         this.desc = in.readString();
-        this.amount = in.readFloat();
-        this.descList = in.readString();
+        this.detail = in.readString();
+        this.amount = in.readString();
     }
 
     public static final Parcelable.Creator<NoteEntity> CREATOR = new Parcelable.Creator<NoteEntity>() {

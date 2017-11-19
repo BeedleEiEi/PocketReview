@@ -124,8 +124,10 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
     @Override
     public void onClickNoteEntityItem(NoteEntity noteEntity) {
         System.out.println(noteEntity + " FORM PocketTab");
+        System.out.println(noteEntity.getName() + ">>>>>>>>>>>>> This is title??");
         Intent intent = new Intent(this, EditNoteActivity.class);
         intent.putExtra("NoteInformation", noteEntity);
+        //startActivity(intent);
         startActivityForResult(intent, RESULT_CODE);
     }
 }

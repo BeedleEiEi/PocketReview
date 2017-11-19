@@ -19,13 +19,16 @@ public class AddNoteActivity extends AppCompatActivity {
     @BindView(R.id.doneBtn)
     Button doneBtn;
 
-    @BindView(R.id.titleName)
+    @BindView(R.id.tvTitleName)
     EditText titleName;
 
-    @BindView(R.id.detail)
+    @BindView(R.id.tvTripDesctiption)
+    EditText desc;
+
+    @BindView(R.id.detailAddNote)
     EditText detail;
 
-    @BindView(R.id.value)
+    @BindView(R.id.valueAddNote)
     EditText value;
 
     NoteDatabase noteDatabase;
@@ -52,8 +55,9 @@ public class AddNoteActivity extends AppCompatActivity {
     private NoteEntity saveNoteRecord() {
         NoteEntity noteEntity = new NoteEntity();
         noteEntity.setName(titleName.getText().toString());
+        noteEntity.setDesc(desc.getText().toString());
         noteEntity.setDesc(detail.getText().toString());
-        noteEntity.setAmount(Float.parseFloat(value.getText().toString()));
+        noteEntity.setAmount(value.getText().toString());
         return noteEntity;
     }
 
@@ -70,5 +74,5 @@ public class AddNoteActivity extends AppCompatActivity {
         Intent intent = new Intent(AddNoteActivity.this, PocketNoteTab.class);
         startActivity(intent);
     }
-    
+
 }
