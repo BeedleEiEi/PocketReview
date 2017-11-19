@@ -3,6 +3,7 @@
     package="app.beedle.pocketreview">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
      
 
 
@@ -30,8 +31,9 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".LocationTab"
-            android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".AddNoteActivity"></activity>
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".AddNoteActivity" />
+        <activity android:name=".EditNoteActivity"></activity>
     </application>
 
 </manifest>

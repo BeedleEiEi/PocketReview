@@ -23,21 +23,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PocketNoteTab extends AppCompatActivity implements NoteItemClickListener {
-    private ListView lvNote; //listview note
-    private Note note;
-    private List<Note> listNoteSend;
+public class PocketNoteTab extends AppCompatActivity implements NoteEntityAdapter.NoteEntityItemClickListener {
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private NoteDatabase noteDatabase;
+    private NoteEntityAdapter noteEntityAdapter;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    /*private static final String DATABASE_NAME = "NoteDatabase";
-    final NoteEntity noteEntity = new NoteEntity();
-    private NoteDatabase noteDatabase;*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -53,15 +47,20 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
         noteEntityList = new ArrayList<>();
 
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
+
+        noteEntityAdapter = new NoteEntityAdapter(this, noteEntityList);
+        noteEntityAdapter.setListener(this);
         loadNote();
 
     }
+
 
     @SuppressLint("StaticFieldLeak")
     private void loadNote() {
@@ -85,17 +84,13 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         //get note list  here ....
-
-    }
-
-    @Override
-    public void onNoteItemClick(Note n) {
 
     }
 
@@ -120,5 +115,11 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
     public void clearNote(View view) {
         deleteNote();
 
+    }
+
+    @Override
+    public void onClickNoteEntityItem(NoteEntity noteEntity) {
+
+        //System.out.println(noteEntity.getName() + ">>>>>>>>>>>>>>>>>>>>>");
     }
 }

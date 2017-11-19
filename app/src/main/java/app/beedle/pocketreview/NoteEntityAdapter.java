@@ -1,6 +1,7 @@
 package app.beedle.pocketreview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,20 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         this.noteEntityList = listNoteEntity;
     }
 
+    private NoteEntityItemClickListener listener;
+
+    public void setListener(NoteEntityItemClickListener listener) {
+        System.out.println("set Listener");
+        this.listener = listener;
+    }
+
+    public interface NoteEntityItemClickListener {
+
+        void onClickNoteEntityItem(NoteEntity noteEntity);
+
+    }
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_tab_item, parent, false);
@@ -33,10 +48,21 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        NoteEntity noteEntity = noteEntityList.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final NoteEntity noteEntity = noteEntityList.get(position);
+
         viewHolder.tvTitleName.setText(noteEntity.getName());
         viewHolder.tvDesc.setText(noteEntity.getDesc());
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(noteEntity.getName() + " >>>> FROM NOTE Adapter");
+                System.out.println(listener);
+                listener.onClickNoteEntityItem(noteEntity);
+
+            }
+        });
     }
 
     @Override
@@ -50,7 +76,6 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             tvTitleName = itemView.findViewById(R.id.noteName);
             tvDesc = itemView.findViewById(R.id.noteDescription);
 
