@@ -67,6 +67,8 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         return noteEntityList.size();
     }
 
+
+    //ViewHolder Class
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTitleName;
         public TextView tvDesc;

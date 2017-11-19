@@ -3,4 +3,5 @@
     <string name="action_setting">Setting</string>
     <string name="action_addNote">Add Note</string>
     <string name="enter_title">Title Name:</string>
+    <string name="textDesc">This is my first trip!:</string>
 </resources>

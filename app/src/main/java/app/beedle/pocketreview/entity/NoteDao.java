@@ -12,6 +12,9 @@ public interface NoteDao {
     @Query("SELECT * FROM NoteEntity")
     List<NoteEntity> getAll();
 
+    @Query("SELECT * FROM NoteEntity WHERE id = :id")
+    NoteEntity queryByID(int id);
+
     @Insert
     void insert(NoteEntity noteEntity);
 

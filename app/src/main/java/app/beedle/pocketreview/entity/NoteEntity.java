@@ -5,6 +5,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 @Entity
 public class NoteEntity implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -15,6 +17,27 @@ public class NoteEntity implements Parcelable {
     private String desc;
 
     private float amount;
+
+    private String descList;
+
+
+    public String getDescList() {
+        return descList;
+    }
+
+    public void setDescList(String descList) {
+        this.descList = descList;
+    }
+
+    public Float getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(Float priceList) {
+        this.priceList = priceList;
+    }
+
+    private Float priceList;
 
     public NoteEntity() {
 
@@ -67,12 +90,14 @@ public class NoteEntity implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.desc);
         dest.writeFloat(this.amount);
+        dest.writeString(this.descList);
     }
 
     public NoteEntity(Parcel in) {
         this.id = in.readInt();
         this.desc = in.readString();
         this.amount = in.readFloat();
+        this.descList = in.readString();
     }
 
     public static final Parcelable.Creator<NoteEntity> CREATOR = new Parcelable.Creator<NoteEntity>() {

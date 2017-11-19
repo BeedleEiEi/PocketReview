@@ -31,6 +31,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    public final int RESULT_CODE = 10;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -116,8 +117,15 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
     }
 
+    /*
+    * When Item was clicked it's collect that object and put into pacelable
+    *
+    * */
     @Override
     public void onClickNoteEntityItem(NoteEntity noteEntity) {
         System.out.println(noteEntity + " FORM PocketTab");
+        Intent intent = new Intent(this, EditNoteActivity.class);
+        intent.putExtra("NoteInformation", noteEntity);
+        startActivityForResult(intent, RESULT_CODE);
     }
 }
