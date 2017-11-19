@@ -33,8 +33,11 @@ public class EditNoteActivity extends AppCompatActivity {
     private EditText titleName, description, detail, value;
     private String detailList;
     private Float priceList;
-    private List<String> tempDetail;
-
+    private String tempDetail;
+    String tempName = "";
+    String tempDescription = "";
+    String tempDet = "";
+    String tempPrice = "";
     private NoteEntityDetail noteEntityDetail;
 
     @Override
@@ -58,22 +61,65 @@ public class EditNoteActivity extends AppCompatActivity {
         noteEntity = intent.getParcelableExtra("NoteInformation");//NoteEntity in this parcelable
 
 
+        formatString(noteEntity);
         setDetail();
+
+    }
+
+    private void formatString(NoteEntity noteEntity) {
+        //System.out.println(noteEntity.toString() + " >>> this is format");
+        tempDetail = noteEntity.toString();
+        String key = "";
+        String test = "";
+        int times = 1;
+        tempDetail.matches(".*\\'[eNm]'\\b.*");
+        for (int index = 0; index < tempDetail.length(); index++) {
+            //System.out.println(tempDetail.charAt(index));
+            if (tempDetail.charAt(index) == '[') {
+                key += '[';
+                System.out.println("INTHISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+            }
+            if (tempDetail.charAt(index) == 'e') {
+                key += 'e';
+            }
+            if (tempDetail.charAt(index) == 'N') {
+                key += 'N';
+            }
+            if (key == "[eN") {
+                System.out.println("KEY IN DECISION");
+                if (times == 1) {
+                    tempName = tempDetail.replaceAll(".*\\b'[eNm]'\\b.*", "");
+                } else if (times == 2) {
+                    tempDescription = tempDetail.replaceAll(".*\\b'[eNd]'\\b.*", "");
+                } else if (times == 3) {
+                    tempDet = tempDetail.replaceAll(".*\\b'[eNde]'\\b.*", "");
+                } else if (times == 4) {
+                    tempPrice = tempDetail.replaceAll(".*\\b'[eNam]'\\b.*", "");
+                }
+                key = "";
+            }
+            test += tempDetail.charAt(index);
+            times += 1;
+
+        }
+        /*tempName.replace("'[eNm]'", "");
+        tempDescription.replace("'[eNd]'", "");
+        tempDet.replace("'[eNde]'", "");
+        tempPrice.replace("'[eNam]'", "");*/
 
     }
 
 
     private void setDetail() {
         //Set Text on screen
-
-        System.out.println(noteEntity);
-        System.out.println(noteEntity.getName());
         System.out.println(intent.hasExtra("NoteInformation") + " Is it???");
+        System.out.println(tempDet + " >>>>>>>>>>> Temp DET");
 
-        titleName.setText(noteEntity.getName());
-        description.setText(noteEntity.getDesc());
-        detail.setText(noteEntity.getDetail());
-        value.setText(noteEntity.getAmount());
+
+        titleName.setText(tempName);
+        description.setText(tempDescription);
+        detail.setText(tempDet);
+        value.setText(tempPrice);
 
 
         //System.out.println(noteEntity.getName() + ">ASDASDASDSA");
