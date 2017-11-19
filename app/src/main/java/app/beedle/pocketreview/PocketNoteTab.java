@@ -26,12 +26,10 @@ public class PocketNoteTab extends Activity implements NoteItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pocket_note_tab);
         lvNote = findViewById(R.id.pocket_noteList);
-
         NoteAdapter noteAdapter = new NoteAdapter(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         listNoteSend = new ArrayList<Note>(); //Initial list
         note = new Note("Test", "Description"); //Create note
-
         lvNote.setAdapter(new NoteAdapter(this, listNoteSend, this));
 
     }
