@@ -77,16 +77,12 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
             @Override
             protected List<NoteEntity> doInBackground(Void... voids) {
                 List<NoteEntity> result = noteDatabase.noteRoomDAO().getAll();
+                noteEntityList = result;
                 return result;
             }
 
             @Override
             protected void onPostExecute(List<NoteEntity> noteEntities) {
-                System.out.println(noteEntities.get(0).getAmount() + " >>>>>>>>>>");
-                for (int i = 0; i < noteEntities.size(); i++) {
-                    System.out.println(noteEntities.get(i).getName() + " >>>>>>>>>>>>");
-                }
-                //lvNote.setAdapter(new NoteAdapter(getApplicationContext(), noteEntities));
                 setAdapterNote(noteEntities);
             }
         }.execute();
@@ -98,11 +94,6 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
     }
-
-    private void setAdapter() {
-        lvNote.setAdapter(new NoteAdapter(this, noteEntityList));
-    }
-
 
     @Override
     protected void onStart() {
@@ -121,10 +112,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         new AsyncTask<Void, Void, List<NoteEntity>>() {
             @Override
             protected List<NoteEntity> doInBackground(Void... voids) {
-                for (NoteEntity note : noteEntityList) {
-                    noteDatabase.noteRoomDAO().deleteAll();
-                }
-
+                noteDatabase.noteRoomDAO().deleteNoteAll(noteEntityList);
                 return null;
             }
 

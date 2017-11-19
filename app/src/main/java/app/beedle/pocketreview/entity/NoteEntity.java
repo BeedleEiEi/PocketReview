@@ -1,26 +1,19 @@
 package app.beedle.pocketreview.entity;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Beedle on 18/11/2560.
- */
-@Entity(tableName = "NOTE")
+@Entity
 public class NoteEntity implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "NAME")
     private String name;
 
-    @ColumnInfo(name = "DESC")
     private String desc;
 
-    @ColumnInfo(name = "AMOUNT")
     private float amount;
 
     public NoteEntity() {

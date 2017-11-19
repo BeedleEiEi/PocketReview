@@ -7,13 +7,9 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-/**
- * Created by Beedle on 18/11/2560.
- */
-
 @Dao
 public interface NoteDao {
-    @Query("SELECT * FROM NOTE")
+    @Query("SELECT * FROM NoteEntity")
     List<NoteEntity> getAll();
 
     @Insert
@@ -21,8 +17,8 @@ public interface NoteDao {
 
 
     @Delete
-    void delete(NoteEntity recordInfo);
+    void deleteNoteRecord(NoteEntity recordInfo);
 
-    @Query("DELETE FROM NOTE")
-    void deleteAll();
+    @Delete
+    void deleteNoteAll(List<NoteEntity> recordInfo);
 }

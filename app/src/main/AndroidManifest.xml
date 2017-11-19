@@ -31,7 +31,7 @@
         <activity
             android:name=".LocationTab"
             android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".add_note"></activity>
+        <activity android:name=".AddNoteActivity"></activity>
     </application>
 
 </manifest>

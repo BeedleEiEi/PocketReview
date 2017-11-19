@@ -1,15 +1,11 @@
 package app.beedle.pocketreview;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
-import android.app.TabActivity;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +21,6 @@ import java.util.List;
 import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
 import app.beedle.pocketreview.model.Note;
-import app.beedle.pocketreview.model.UpdateList;
 
 
 @SuppressWarnings("deprecation")
@@ -51,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent addNoteIntent = new Intent(MainActivity.this, add_note.class);
+                Intent addNoteIntent = new Intent(MainActivity.this, AddNoteActivity.class);
                 startActivityForResult(addNoteIntent, REQUEST_CODE);
                 break;
             case R.id.action_setting:
@@ -161,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoNote(View view) {
-        Intent intent = new Intent(MainActivity.this, add_note.class);
+        Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
         startActivity(intent);
     }
 
