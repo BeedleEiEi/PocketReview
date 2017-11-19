@@ -6,29 +6,83 @@
     android:layout_height="match_parent"
     tools:context="app.beedle.pocketreview.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbMain"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/DarkCyan"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pocket Review"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/White" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Write down the trip!"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
     <LinearLayout
         android:id="@+id/LinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
         android:orientation="horizontal"
         android:weightSum="3"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/tbMain">
 
-        <TabHost
+        <Button
+            android:id="@+id/toNoteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GOTO NOTE"
+            android:onClick="gotoNote"/>
+
+        <Button
+            android:id="@+id/toCurrencyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="gotoCurrency"
+            android:text="Currency" />
+
+        <!--<TabHost
             android:id="@+id/tabHost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,7 +152,7 @@
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
-        </TabHost>
+        </TabHost>-->
 
     </LinearLayout>
 
