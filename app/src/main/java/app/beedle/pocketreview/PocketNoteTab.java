@@ -23,11 +23,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PocketNoteTab extends AppCompatActivity implements NoteEntityAdapter.NoteEntityItemClickListener {
+public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemClickListener {
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private NoteDatabase noteDatabase;
-    private NoteEntityAdapter noteEntityAdapter;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -55,8 +54,8 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityAdapte
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
 
-        noteEntityAdapter = new NoteEntityAdapter(this, noteEntityList);
-        noteEntityAdapter.setListener(this);
+        //noteEntityAdapter = new NoteEntityAdapter(this, noteEntityList);
+
         loadNote();
 
     }
@@ -119,7 +118,6 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityAdapte
 
     @Override
     public void onClickNoteEntityItem(NoteEntity noteEntity) {
-
-        //System.out.println(noteEntity.getName() + ">>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(noteEntity + " FORM PocketTab");
     }
 }

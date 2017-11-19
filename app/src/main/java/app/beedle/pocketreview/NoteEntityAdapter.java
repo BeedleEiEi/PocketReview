@@ -20,23 +20,21 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     private List<NoteEntity> noteEntityList;
     private Context context;
     private ViewHolder viewHolder;
+    private NoteEntityItemClickListener listener;
+
 
     public NoteEntityAdapter(Context context, List<NoteEntity> listNoteEntity) {
         this.context = context;
         this.noteEntityList = listNoteEntity;
+        this.listener = (NoteEntityItemClickListener) context;
     }
 
-    private NoteEntityItemClickListener listener;
-
     public void setListener(NoteEntityItemClickListener listener) {
-        System.out.println("set Listener");
         this.listener = listener;
     }
 
-    public interface NoteEntityItemClickListener {
-
-        void onClickNoteEntityItem(NoteEntity noteEntity);
-
+    public void setNoteEntityList(List<NoteEntity> noteEntityList) {
+        this.noteEntityList = noteEntityList;
     }
 
 
@@ -58,9 +56,8 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
             @Override
             public void onClick(View v) {
                 System.out.println(noteEntity.getName() + " >>>> FROM NOTE Adapter");
-                System.out.println(listener);
-                listener.onClickNoteEntityItem(noteEntity);
 
+                listener.onClickNoteEntityItem(noteEntity);
             }
         });
     }
