@@ -50,22 +50,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_pocket_note_tab);
-<<<<<<< HEAD
-        lvNote = findViewById(R.id.pocket_noteList);
-        NoteAdapter noteAdapter = new NoteAdapter(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        listNoteSend = new ArrayList<Note>(); //Initial list
-        note = new Note("Test", "Description"); //Create note
-        lvNote.setAdapter(new NoteAdapter(this, listNoteSend, this));
-=======
-        //noteDatabase = Room.databaseBuilder(getApplicationContext(), NoteDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
-
-
-        //lvNote = findViewById(R.id.pocket_noteList);
-        //NoteAdapter noteAdapter = new NoteAdapter(this, listNoteSend);
-        /*NoteAdapter noteAdapter = new NoteAdapter(this, noteEntityList);
-        LayoutInflater inflater = LayoutInflater.from(this);*/
         noteEntityList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -74,9 +59,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteItemClickLis
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
-
         loadNote();
->>>>>>> addDB
 
     }
 

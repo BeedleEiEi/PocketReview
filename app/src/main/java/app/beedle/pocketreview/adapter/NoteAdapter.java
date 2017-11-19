@@ -30,11 +30,6 @@ public class NoteAdapter extends BaseAdapter {
     private NoteEntity noteEntity;
 
 
-    /*public NoteAdapter(Context context, List<Note> noteList) {
-        this.context = context;
-        this.noteList = noteList;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }*/
     public NoteAdapter(Context context) {
         this.context = context;
 
@@ -64,25 +59,13 @@ public class NoteAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-/*
-        View noteItemView = layoutInflater.inflate(R.layout.note_tab_item, null);
 
-        TextView tvTitleName = noteItemView.findViewById(R.id.noteName);
-        TextView tvDesc = noteItemView.findViewById(R.id.noteDescription);
-        final Note index = noteList.get(position);
-        tvTitleName.setText(index.getNoteName());
-        tvDesc.setText(index.getNoteDesc());*/
-
-        System.out.println("asdasdasdasd>>>>>>>>>>>>>>>>>");
         @SuppressLint("ViewHolder") View noteItemView = layoutInflater.inflate(R.layout.note_tab_item, null);
         TextView tvTitleName = noteItemView.findViewById(R.id.noteName);
         TextView tvDesc = noteItemView.findViewById(R.id.noteDescription);
-
         NoteEntity index = noteEntityList.get(position);
         tvTitleName.setText(index.getName());
         tvDesc.setText(index.getDesc());
-        System.out.println(tvTitleName + ">>>>>>>>>>>>>>>>>>>>>>");
-
 
         return noteItemView;
 

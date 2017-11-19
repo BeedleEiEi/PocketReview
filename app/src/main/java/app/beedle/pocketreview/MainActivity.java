@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent addNoteIntent = new Intent(MainActivity.this, AddNoteActivity.class);
@@ -66,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
             loadNote();
             System.out.println("request complete");
         }
-
-        /*note.setNoteName(data.getStringExtra("note name"));
-        note.setNoteDesc(data.getStringExtra("note desc"));
-        note.setNoteValue(data.getStringExtra("note value"));
-        noteList.add(note);
-        System.out.println("In thisssss");*/
     }
 
 
@@ -137,11 +130,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }.execute();
     }
-
-/*    public void goCurrency(View view) { //Clicked Button
-        Intent intent = new Intent(this, CurrencyTab.class);
-        startActivity(intent);
-    }*/
 
     @Override
     protected void onPause() {
