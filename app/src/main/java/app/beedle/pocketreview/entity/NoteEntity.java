@@ -39,23 +39,8 @@ public class NoteEntity implements Parcelable {
     * */
     @Override
     public String toString() {
-        return String.format("%s'[eNm]'%s'[eNd]'%s'[eNde]'%s'[eNam]'", name, desc, detail, amount);
-    }
-
-    public String getNameAll() {
-        return String.format("%s\n", name);
-    }
-
-    public String getDesctiptionAll() {
-        return String.format("%s\n", desc);
-    }
-
-    public String getDetailAll() {
-        return String.format("%s\n", detail);
-    }
-
-    public String getAmountAll() {
-        return String.format("%s\n", amount);
+        return String.format("%s%s%s%s", name, desc, detail, amount);
+        //return String.format("%s\n", name);
     }
 
     public int getId() {

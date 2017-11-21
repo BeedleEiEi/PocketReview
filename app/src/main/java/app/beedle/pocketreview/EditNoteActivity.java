@@ -2,14 +2,19 @@ package app.beedle.pocketreview;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +24,24 @@ import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
 import app.beedle.pocketreview.model.NoteEntityDetail;
 
-public class EditNoteActivity extends AppCompatActivity {
+public class EditNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private NoteDatabase noteDatabase;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private static final int RESULT_UPDATE = 40;
 
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private Intent intent;
-
+    private ImageButton deleteNote;
+    private Button doneBtn;
     private EditText titleName, description, detail, value;
-    private String detailList;
-    private Float priceList;
-    private String tempDetail;
+
+    String tempDetail = "";
     String tempName = "";
     String tempDescription = "";
-    String tempDet = "";
     String tempPrice = "";
     private NoteEntityDetail noteEntityDetail;
 
@@ -50,8 +55,10 @@ public class EditNoteActivity extends AppCompatActivity {
         description = findViewById(R.id.tvTripDesctiptionEditNote);
         detail = findViewById(R.id.detailEditNote);
         value = findViewById(R.id.valueEditNote);
+        deleteNote = findViewById(R.id.deleteNote);
+        doneBtn = findViewById(R.id.doneBtnEditNote);
 
-
+        deleteNote.setOnClickListener(this);
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
         noteEntityList = new ArrayList<>();
         noteEntity = new NoteEntity();
@@ -61,85 +68,107 @@ public class EditNoteActivity extends AppCompatActivity {
         noteEntity = intent.getParcelableExtra("NoteInformation");//NoteEntity in this parcelable
 
 
-        formatString(noteEntity);
+        tempName = noteEntity.getName();
+        tempDescription = noteEntity.getDesc();
+        tempDetail = noteEntity.getDetail();
+        tempPrice = noteEntity.getAmount();
+
+        System.out.println("---------------------------------");
+        System.out.println(tempName);
+        System.out.println(tempDescription);
+        System.out.println(tempDetail);
+        System.out.println(tempPrice);
+        System.out.println("---------------------------------");
+
         setDetail();
-
-    }
-
-    private void formatString(NoteEntity noteEntity) {
-        //System.out.println(noteEntity.toString() + " >>> this is format");
-        tempDetail = noteEntity.toString();
-        String key = "";
-        String test = "";
-        int times = 1;
-        tempDetail.matches(".*\\'[eNm]'\\b.*");
-        for (int index = 0; index < tempDetail.length(); index++) {
-            //System.out.println(tempDetail.charAt(index));
-            if (tempDetail.charAt(index) == '[') {
-                key += '[';
-                System.out.println("INTHISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-            }
-            if (tempDetail.charAt(index) == 'e') {
-                key += 'e';
-            }
-            if (tempDetail.charAt(index) == 'N') {
-                key += 'N';
-            }
-            if (key == "[eN") {
-                System.out.println("KEY IN DECISION");
-                if (times == 1) {
-                    tempName = tempDetail.replaceAll(".*\\b'[eNm]'\\b.*", "");
-                } else if (times == 2) {
-                    tempDescription = tempDetail.replaceAll(".*\\b'[eNd]'\\b.*", "");
-                } else if (times == 3) {
-                    tempDet = tempDetail.replaceAll(".*\\b'[eNde]'\\b.*", "");
-                } else if (times == 4) {
-                    tempPrice = tempDetail.replaceAll(".*\\b'[eNam]'\\b.*", "");
-                }
-                key = "";
-            }
-            test += tempDetail.charAt(index);
-            times += 1;
-
-        }
-        /*tempName.replace("'[eNm]'", "");
-        tempDescription.replace("'[eNd]'", "");
-        tempDet.replace("'[eNde]'", "");
-        tempPrice.replace("'[eNam]'", "");*/
-
     }
 
 
     private void setDetail() {
         //Set Text on screen
-        System.out.println(intent.hasExtra("NoteInformation") + " Is it???");
-        System.out.println(tempDet + " >>>>>>>>>>> Temp DET");
-
 
         titleName.setText(tempName);
         description.setText(tempDescription);
-        detail.setText(tempDet);
+        detail.setText(tempDetail);
         value.setText(tempPrice);
 
-
-        //System.out.println(noteEntity.getName() + ">ASDASDASDSA");
-        /*titleName.setText(noteEntity.getName()); //Set Trip name
-        description.setText(noteEntity.getDesc()); // Set Description
-        detailList = noteEntity.getDescList();
-        priceList = noteEntity.getPriceList();*/
-
-        /*if (detailList != null && priceList != null) {
-
-            noteEntityDetail.setList(detailList, priceList);
-            tempDetail = noteEntityDetail.getDetailAll(); // Get String contatinated
-            setAdapter(tempDetail);
-        }*/
     }
 
-    /*private void setAdapter(List<String> detailString) {
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new NoteDetailAdapter(this, detailString);
-        recyclerView.setAdapter(adapter);
-    }*/
+
+    @SuppressLint("StaticFieldLeak")
+    private void deleteNote() {
+        new AsyncTask<Void, Void, List<NoteEntity>>() {
+            @Override
+            protected List<NoteEntity> doInBackground(Void... voids) {
+                noteDatabase.noteRoomDAO().deleteNoteRecord(noteEntity);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<NoteEntity> noteEntityList) {
+                Intent intent = new Intent(EditNoteActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }.execute();
+
+    }
+
+    private void alertDialog() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Confirm Delete Note");
+        alertDialog.setMessage("Do you want to delete this note?").setCancelable(true).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteNote();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //
+            }
+        });
+        alertDialog.create();
+        alertDialog.show();
+    }
+
+
+    private void UpdateNote(final NoteEntity noteEntity) {
+        new AsyncTask<Void, Void, NoteEntity>() {
+            @Override
+            protected NoteEntity doInBackground(Void... voids) {
+                noteDatabase.noteRoomDAO().update(noteEntity);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(NoteEntity noteEntity) {
+                Toast.makeText(EditNoteActivity.this, "Note has been Updated", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EditNoteActivity.this, PocketNoteTab.class);
+                startActivityForResult(intent, RESULT_UPDATE);
+            }
+        }.execute();
+    }
+
+    private NoteEntity saveNoteRecord() {
+        noteEntity.setName(titleName.getText().toString());
+        noteEntity.setDesc(description.getText().toString());
+        System.out.println(noteEntity.getName() + "<<<<<<<<<<< New name");
+        noteEntity.setDetail(detail.getText().toString());
+        noteEntity.setAmount(value.getText().toString());
+        return noteEntity;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.deleteNote) {
+            alertDialog();
+        }
+    }
+
+    public void updateNote(View view) {
+        System.out.println("In condition");
+        noteEntity = saveNoteRecord();
+        UpdateNote(noteEntity);
+    }
 }

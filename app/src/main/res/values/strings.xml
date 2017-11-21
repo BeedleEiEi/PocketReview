@@ -3,5 +3,11 @@
     <string name="action_setting">Setting</string>
     <string name="action_addNote">Add Note</string>
     <string name="enter_title">Title Name:</string>
+    <string name="Note">Note</string>
+    <string name="remove_all_note">Remove all note</string>
+    <string name="Spend">Spend</string>
+    <string name="edit_note_page">Edit Note</string>
+    <string name="add_note_page">Create Note</string>
+    <string name="show_all_note">Notes List</string>
     <string name="textDesc">This is my first trip!:</string>
 </resources>

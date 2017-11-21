@@ -2,10 +2,13 @@ package app.beedle.pocketreview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -48,7 +51,9 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final NoteEntity noteEntity = noteEntityList.get(position);
-
+        if (position % 2 == 0) {
+            viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FF4500"));
+        }
         viewHolder.tvTitleName.setText(noteEntity.getName());
         viewHolder.tvDesc.setText(noteEntity.getDesc());
 
@@ -72,11 +77,13 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTitleName;
         public TextView tvDesc;
+        public LinearLayout contentBlock;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitleName = itemView.findViewById(R.id.noteName);
             tvDesc = itemView.findViewById(R.id.noteDescription);
+            contentBlock = itemView.findViewById(R.id.noteBlock);
 
         }
     }

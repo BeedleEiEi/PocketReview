@@ -30,30 +30,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pocket Review"
                     android:layout_gravity="top"
+                    android:paddingTop="10dp"
+                    android:text="@string/show_all_note"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/White" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Write down the trip!"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:layout_gravity="center_vertical"/>
+                    android:textColor="@color/White" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="clearNote"
-                        android:text="ClearNote"
-                        />
             </LinearLayout>
 
 
@@ -66,7 +61,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
-
 
 
 </LinearLayout>
