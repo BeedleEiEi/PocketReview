@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
      
 
 
@@ -33,7 +34,7 @@
             android:name=".LocationTab"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".AddNoteActivity" />
-        <activity android:name=".EditNoteActivity"></activity>
+        <activity android:name=".EditNoteActivity" />
     </application>
 
 </manifest>

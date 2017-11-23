@@ -5,30 +5,25 @@ import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.beedle.pocketreview.adapter.NoteAdapter;
 import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
-import app.beedle.pocketreview.model.Note;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static app.beedle.pocketreview.MainActivity.REQUEST_CODE;
 
@@ -42,7 +37,9 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     public final int RESULT_CODE = 10;
-    private Button refresh;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -58,14 +55,24 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_pocket_note_tab);
-        Toolbar tbMain = findViewById(R.id.tbMain);
+        drawerLayout = findViewById(R.id.drawer_pocket_tab);
+        navigationView = findViewById(R.id.navigationView);
+        recyclerView = findViewById(R.id.recycler_view);
+        Toolbar tbMain = findViewById(R.id.tbPocket);
         setSupportActionBar(tbMain);
         getSupportActionBar().setTitle("Pocket Review");
-        refresh = findViewById(R.id.refresh);
+
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setDrawerContent(navigationView);
+
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
         noteEntityList = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.recycler_view);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -75,9 +82,15 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("Clicked !!!");
         int id = item.getItemId();
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            Toast.makeText(this, "Menu " + item.getTitle() + " has been selected", Toast.LENGTH_LONG).show();
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent addNoteIntent = new Intent(PocketNoteTab.this, AddNoteActivity.class);
@@ -87,8 +100,12 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
                 alertDialog();
                 break;
         }
+
+        Toast.makeText(this, "Menu " + item.getTitle() + " has been selected", Toast.LENGTH_LONG).show();
+
         return true;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -167,23 +184,45 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
     }
 
-    /*public void clearNote(View view) { //when click button
-        deleteNote();
-    }*/
+    private void setDrawerContent(final NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectItemDrawer(item);
+                return true;
+            }
+        });
+    }
 
-    /*
-    * When Item was clicked it's collect that object and put into pacelable
-    *
-    * */
+    public void selectItemDrawer(MenuItem item) {
+        Intent intent;
+
+        switch (item.getItemId()) {
+            case R.id.mainMenuTab:
+                intent = new Intent(PocketNoteTab.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.currencyTabMenu:
+                intent = new Intent(PocketNoteTab.this, CurrencyTab.class);
+                startActivity(intent);
+                break;
+            case R.id.locationMenu:
+                intent = new Intent(PocketNoteTab.this, LocationTab.class);
+                startActivity(intent);
+                break;
+            default:
+                //
+        }
+        item.setChecked(true);
+        setTitle(item.getTitle());
+        drawerLayout.closeDrawers();
+    }
+
     @Override
     public void onClickNoteEntityItem(NoteEntity noteEntity) {
         Intent intent = new Intent(this, EditNoteActivity.class);
         intent.putExtra("NoteInformation", noteEntity);
-        //startActivity(intent);
         startActivityForResult(intent, RESULT_CODE);
     }
 
-    public void reFresh(View view) {
-        loadNote();
-    }
 }

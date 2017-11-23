@@ -10,4 +10,17 @@
     <string name="add_note_page">Create Note</string>
     <string name="show_all_note">Notes List</string>
     <string name="textDesc">This is my first trip!:</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="MainMenuFragment">main_menu_fragment</string>
+    <string name="FragmentPocket">pocket_fragment</string>
+    <string name="CurrencyFragment">currency_fragment</string>
+    <string name="LocationFragment">location_fragment</string>
 </resources>

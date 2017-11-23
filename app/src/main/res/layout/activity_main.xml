@@ -1,57 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="app.beedle.pocketreview.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tbMain"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/DarkCyan"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bodybg">
 
+    </LinearLayout>
 
-        <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbMain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="64dp"
+            android:background="@color/DarkCyan"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pocket Review"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/White" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Write down the trip!"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pocket Review"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/White" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Write down the trip!"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
 
 
-    <LinearLayout
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frameContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </FrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:itemIconTint="@color/DarkCyan"
+        app:itemTextColor="@color/DarkCyan"
+        app:menu="@menu/drawer_menu">
+
+    </android.support.design.widget.NavigationView>
+
+
+
+
+    <!--<LinearLayout
         android:id="@+id/LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,99 +99,100 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbMain">
+        app:layout_constraintTop_toBottomOf="@+id/tbMain">-->
 
-        <Button
-            android:id="@+id/toNoteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GOTO NOTE"
-            android:onClick="gotoNote"/>
+    <!--<Button
+        android:id="@+id/toNoteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoNote"
+        android:text="GOTO NOTE" />
 
-        <Button
-            android:id="@+id/toCurrencyBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="gotoCurrency"
-            android:text="Currency" />
+    <Button
+        android:id="@+id/toCurrencyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoCurrency"
+        android:text="Currency" />-->
 
-        <!--<TabHost
-            android:id="@+id/tabHost"
+
+    <!--<TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TabWidget
+                android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"></TabWidget>
 
-                <TabWidget
-                    android:id="@android:id/tabs"
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></TabWidget>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
+
+                    <ListView
+                        android:id="@+id/lvCurrency"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </ListView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/Wheat"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/tab1"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:text="This is tab 2" />
+
+                    <ListView
+                        android:id="@+id/lvNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </ListView>
 
 
-                        <ListView
-                            android:id="@+id/lvCurrency"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                </LinearLayout>
 
-                        </ListView>
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/White"
+                    android:orientation="vertical">
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab2"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/Wheat"
-                        android:orientation="vertical">
+                        android:text="This is tab 3" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="This is tab 2" />
+    <!--    </LinearLayout>-->
 
-                        <ListView
-                            android:id="@+id/lvNote"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        </ListView>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/White"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="This is tab 3" />
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </TabHost>-->
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.DrawerLayout>
