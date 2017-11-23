@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,8 +38,9 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private Intent intent;
     private ImageButton deleteNote;
     private Button doneBtn;
+    private TextView totalPrice;
     private EditText titleName, description, detail, value;
-
+    private float amount = 0;
     String tempDetail = "";
     String tempName = "";
     String tempDescription = "";
@@ -55,6 +57,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         description = findViewById(R.id.tvTripDesctiptionEditNote);
         detail = findViewById(R.id.detailEditNote);
         value = findViewById(R.id.valueEditNote);
+        totalPrice = findViewById(R.id.totalPriceEdit);
         deleteNote = findViewById(R.id.deleteNote);
         doneBtn = findViewById(R.id.doneBtnEditNote);
 
@@ -64,7 +67,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         noteEntity = new NoteEntity();
         intent = getIntent();
         //Get intent from Item selected contain NoteEntity Object in it
-        //noteEntity = getIntent().getParcelableExtra("NoteInformation");//NoteEntity in this parcelable
         noteEntity = intent.getParcelableExtra("NoteInformation");//NoteEntity in this parcelable
 
 
@@ -73,6 +75,15 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         tempDetail = noteEntity.getDetail();
         tempPrice = noteEntity.getAmount();
 
+
+        String[] text = tempPrice.split("\n");
+
+        System.out.println("------------PRICE LOOP-------------");
+        for (int i = 0; i < text.length; i++) {
+            amount += Float.parseFloat(text[i]);
+        }
+
+        System.out.println(amount + " <<<<<<<< Amount");
         System.out.println("---------------------------------");
         System.out.println(tempName);
         System.out.println(tempDescription);
@@ -91,6 +102,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         description.setText(tempDescription);
         detail.setText(tempDetail);
         value.setText(tempPrice);
+        totalPrice.setText(amount + ""); //Can add Currency here
 
     }
 
@@ -132,6 +144,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     private void UpdateNote(final NoteEntity noteEntity) {
         new AsyncTask<Void, Void, NoteEntity>() {
             @Override
@@ -152,9 +165,9 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private NoteEntity saveNoteRecord() {
         noteEntity.setName(titleName.getText().toString());
         noteEntity.setDesc(description.getText().toString());
-        System.out.println(noteEntity.getName() + "<<<<<<<<<<< New name");
         noteEntity.setDetail(detail.getText().toString());
         noteEntity.setAmount(value.getText().toString());
+        noteEntity.setTotal(amount); // Set total price
         return noteEntity;
     }
 
@@ -167,7 +180,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void updateNote(View view) {
-        System.out.println("In condition");
         noteEntity = saveNoteRecord();
         UpdateNote(noteEntity);
     }

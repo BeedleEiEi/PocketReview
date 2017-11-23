@@ -3,18 +3,22 @@
 
     <item
         android:id="@+id/mainMenuTab"
+        android:icon="@drawable/ic_home_black_24px"
         android:title="Main Menu" />
 
     <item
         android:id="@+id/pocketTabMenu"
+        android:icon="@drawable/ic_note_black_24px"
         android:title="PocketNote" />
 
     <item
         android:id="@+id/currencyTabMenu"
+        android:icon="@drawable/ic_attach_money_black_24px"
         android:title="Currency" />
 
     <item
         android:id="@+id/locationMenu"
+        android:icon="@drawable/ic_location_on_black_24px"
         android:title="Location" />
 
 </menu>

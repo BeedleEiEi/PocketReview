@@ -51,10 +51,11 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final NoteEntity noteEntity = noteEntityList.get(position);
         if (position % 2 == 0) {
-            viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FF4500"));
+            viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FFE4E1"));
         }
         viewHolder.tvTitleName.setText(noteEntity.getName());
         viewHolder.tvDesc.setText(noteEntity.getDesc());
+        viewHolder.tvTotalAmount.setText(noteEntity.getTotal().toString());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +77,14 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTitleName;
         public TextView tvDesc;
+        public TextView tvTotalAmount;
         public LinearLayout contentBlock;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitleName = itemView.findViewById(R.id.noteName);
             tvDesc = itemView.findViewById(R.id.noteDescription);
+            tvTotalAmount = itemView.findViewById(R.id.totalPrice);
             contentBlock = itemView.findViewById(R.id.noteBlock);
 
         }

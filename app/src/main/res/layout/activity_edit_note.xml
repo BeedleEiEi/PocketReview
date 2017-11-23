@@ -7,7 +7,14 @@
     android:background="@color/Wheat"
     tools:context="app.beedle.pocketreview.EditNoteActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/paperbg"></LinearLayout>
+
     <ImageButton
+
+
         android:id="@+id/deleteNote"
         android:layout_width="40dp"
         android:layout_height="38dp"
@@ -46,6 +53,7 @@
 
 
     <LinearLayout
+        android:id="@+id/contentDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
@@ -66,9 +74,27 @@
             android:id="@+id/valueEditNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:digits="0123456789.\n"
+            android:inputType="textMultiLine|number"
             android:lineSpacingExtra="16dp"
-            android:text="15 SGD \n3 SGD"
+            android:text="15\n2"
             android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/contentDetail">
+
+        <TextView
+            android:id="@+id/totalPriceEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="50dp"
+            android:text="TOTAL 17"
+            android:textSize="30dp" />
 
     </LinearLayout>
 
@@ -79,66 +105,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="32dp"
-        android:text="Done"
         android:onClick="updateNote"
+        android:text="Done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!--<LinearLayout
-        android:id="@+id/LinearTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/GhostWhite"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <EditText
-            android:id="@+id/tvTitleName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="@string/enter_title"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:layout_editor_absoluteY="27dp" />
-
-        <EditText
-            android:id="@+id/tvTripDesctiption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/textDesc"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/noteBody"
-        android:layout_width="match_parent"
-        android:layout_height="516dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="80dp"
-        android:background="@color/GhostWhite"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LinearTitle">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_note_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
-    </LinearLayout>-->
-
 
 </android.support.constraint.ConstraintLayout>

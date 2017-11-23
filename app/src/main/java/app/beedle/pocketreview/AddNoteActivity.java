@@ -1,12 +1,18 @@
 package app.beedle.pocketreview;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +48,10 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
     NoteDatabase noteDatabase;
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     public MenuInflater getMenuInflater() {
         return super.getMenuInflater();
@@ -54,9 +64,21 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_note);
         ButterKnife.bind(this);
         deleteBtn.setOnClickListener(this);
+
+
+        Toolbar tbMain = findViewById(R.id.tbAddNote);
+        setSupportActionBar(tbMain);
+        getSupportActionBar().setTitle("Pocket Review");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tbMain.setNavigationIcon(getResources().getDrawable(R.drawable.ic_navigate_before_black_24px));
+
+
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
     }
 
+
+    @SuppressLint("StaticFieldLeak")
     private void insertNote(final NoteEntity noteEntity) {
         new AsyncTask<Void, Void, NoteEntity>() {
             @Override
@@ -73,7 +95,18 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         noteEntity.setDesc(desc.getText().toString());
         noteEntity.setDetail(detail.getText().toString());
         noteEntity.setAmount(value.getText().toString());
+        addTotalprice(noteEntity); //Set total Price
         return noteEntity;
+    }
+
+    private void addTotalprice(NoteEntity noteEntity) {
+        String[] text = noteEntity.getAmount().split("\n");
+        float amount = 0;
+
+        for (int i = 0; i < text.length; i++) {
+            amount += Float.parseFloat(text[i]);
+        }
+        noteEntity.setTotal(amount);
     }
 
 
@@ -84,7 +117,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         gotoNoteList();
     }
 
-    @OnClick(R.id.gotoListButton)
     public void gotoNoteList() {
         Intent intent = new Intent(AddNoteActivity.this, PocketNoteTab.class);
         startActivity(intent);
@@ -112,5 +144,11 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         System.out.println("Clicked Delete");
         alertDialog(); //Delete Alert
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
