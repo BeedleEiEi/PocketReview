@@ -6,27 +6,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.util.List;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
-import app.beedle.pocketreview.model.Currency;
-import app.beedle.pocketreview.model.CurrencyExchange;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +35,9 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.tvTitleName)
     EditText titleName;
 
+    @BindView(R.id.tvCurrencyName)
+    TextView tvCurrency;
+
     @BindView(R.id.tvTripDesctiption)
     EditText desc;
 
@@ -52,11 +49,8 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
     NoteDatabase noteDatabase;
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
-    private CurrencyExchange currencyExchange;
-    private List<Currency> currencyList;
+    private String[] name = {"AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"};
+    private String nCurrency;
 
     @Override
     public MenuInflater getMenuInflater() {
@@ -70,7 +64,22 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_note);
         ButterKnife.bind(this);
         deleteBtn.setOnClickListener(this);
-        currencyList = currencyExchange.getCurrencyList();
+
+        //Spinner
+        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
+
+        spinner.setItems(name);
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                nCurrency = item;
+                tvCurrency.setText(item);
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        //End Spinner
 
         Toolbar tbMain = findViewById(R.id.tbAddNote);
         setSupportActionBar(tbMain);
@@ -103,6 +112,11 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         noteEntity.setAmount(value.getText().toString());
         addTotalprice(noteEntity); //Set total Price
         noteEntity.setRating(0);
+        if (nCurrency == null || nCurrency.equals("currency")) {
+            noteEntity.setCurrency("");
+        } else {
+            noteEntity.setCurrency(nCurrency);
+        }
         return noteEntity;
     }
 

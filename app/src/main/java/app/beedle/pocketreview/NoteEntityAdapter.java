@@ -56,7 +56,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         }
         viewHolder.tvTitleName.setText(noteEntity.getName());
         viewHolder.tvDesc.setText(noteEntity.getDesc());
-        viewHolder.tvTotalAmount.setText(noteEntity.getTotal().toString());
+        viewHolder.tvTotalAmount.setText(noteEntity.getTotal().toString() + " " + noteEntity.getCurrency());
         selectImageStar(noteEntity);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +37,19 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static final int RESULT_UPDATE = 40;
+    private String[] name = {"AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"};
 
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private Intent intent;
     private ImageButton deleteNote, ratingStar;
     private Button doneBtn;
-    private TextView totalPrice, txtRatingValue;
+    private TextView totalPrice, txtRatingValue, tvCurrencyName;
     private EditText titleName, description, detail, value;
     private RatingBar ratingBar;
     private float amount = 0;
     private int rating;
+    private String nCurrency;
     String tempDetail = "";
     String tempName = "";
     String tempDescription = "";
@@ -64,6 +69,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         totalPrice = findViewById(R.id.totalPriceEdit);
         deleteNote = findViewById(R.id.deleteNote);
         ratingStar = findViewById(R.id.ratingStar);
+        tvCurrencyName = findViewById(R.id.tvCurrencyName);
 
 
         doneBtn = findViewById(R.id.doneBtnEditNote);
@@ -82,6 +88,23 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         tempDetail = noteEntity.getDetail();
         tempPrice = noteEntity.getAmount();
         rating = noteEntity.getRating();
+        tvCurrencyName.setText(noteEntity.getCurrency());
+
+        //Spinner
+        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
+
+        spinner.setItems(name);
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                nCurrency = item;
+                tvCurrencyName.setText(item);
+                noteEntity.setCurrency(item);
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        //End Spinner
 
         //Listener RatingBar
         //
@@ -108,12 +131,12 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
 
     private void setDetail() {
         //Set Text on screen
-
+        String nCurrency = noteEntity.getCurrency();
         titleName.setText(tempName);
         description.setText(tempDescription);
         detail.setText(tempDetail);
         value.setText(tempPrice);
-        totalPrice.setText(amount + ""); //Can add Currency here
+        totalPrice.setText("TOTAL: " + amount + " " + nCurrency); //Can add Currency here
         setStar();
 
     }
@@ -207,6 +230,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         noteEntity.setAmount(value.getText().toString());
         noteEntity.setTotal(amount); // Set total price
         noteEntity.setRating(rating); //Set rating star
+        noteEntity.setCurrency(nCurrency);
         return noteEntity;
     }
 
