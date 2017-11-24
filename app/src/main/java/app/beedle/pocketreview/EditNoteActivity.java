@@ -88,6 +88,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         tempDetail = noteEntity.getDetail();
         tempPrice = noteEntity.getAmount();
         rating = noteEntity.getRating();
+        nCurrency = noteEntity.getCurrency();
         tvCurrencyName.setText(noteEntity.getCurrency());
 
         //Spinner
