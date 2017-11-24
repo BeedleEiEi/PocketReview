@@ -21,8 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.List;
+
 import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
+import app.beedle.pocketreview.model.Currency;
+import app.beedle.pocketreview.model.CurrencyExchange;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,6 +55,8 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private CurrencyExchange currencyExchange;
+    private List<Currency> currencyList;
 
     @Override
     public MenuInflater getMenuInflater() {
@@ -64,7 +70,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_note);
         ButterKnife.bind(this);
         deleteBtn.setOnClickListener(this);
-
+        currencyList = currencyExchange.getCurrencyList();
 
         Toolbar tbMain = findViewById(R.id.tbAddNote);
         setSupportActionBar(tbMain);
