@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CurrencyTab extends Activity implements Callback<CurrencyExchange>, CurrencyItemClickListener {
+public class CurrencyTab extends AppCompatActivity implements Callback<CurrencyExchange>, CurrencyItemClickListener {
 
     private ListView lvCurrency;
 
@@ -28,12 +29,24 @@ public class CurrencyTab extends Activity implements Callback<CurrencyExchange>,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_tab);
         lvCurrency = findViewById(R.id.lvCurrency);
+        Toolbar tbMain = findViewById(R.id.tbAddNote);
+        setSupportActionBar(tbMain);
+        getSupportActionBar().setTitle("Pocket Review");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tbMain.setNavigationIcon(getResources().getDrawable(R.drawable.ic_navigate_before_black_24px));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         loadCurrencyExchangeData();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void loadCurrencyExchangeData() {
