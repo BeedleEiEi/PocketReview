@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         viewHolder.tvTitleName.setText(noteEntity.getName());
         viewHolder.tvDesc.setText(noteEntity.getDesc());
         viewHolder.tvTotalAmount.setText(noteEntity.getTotal().toString());
+        selectImageStar(noteEntity);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,32 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
                 listener.onClickNoteEntityItem(noteEntity);
             }
         });
+    }
+
+    private void selectImageStar(NoteEntity noteEntity) {
+        int star = 0;
+        star = noteEntity.getRating();
+        viewHolder.starButton.setBackgroundColor(Color.parseColor("#FFD700"));
+        switch (star) {
+            case 1:
+                viewHolder.starButton.setImageResource(R.drawable.one_star);
+                break;
+            case 2:
+                viewHolder.starButton.setImageResource(R.drawable.two_star);
+                break;
+            case 3:
+                viewHolder.starButton.setImageResource(R.drawable.three_star);
+                break;
+            case 4:
+                viewHolder.starButton.setImageResource(R.drawable.four_star);
+                break;
+            case 5:
+                viewHolder.starButton.setImageResource(R.drawable.five_star);
+                break;
+            default:
+                break;
+
+        }
     }
 
     @Override
@@ -78,6 +106,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         public TextView tvTitleName;
         public TextView tvDesc;
         public TextView tvTotalAmount;
+        public ImageButton starButton;
         public LinearLayout contentBlock;
 
         public ViewHolder(View itemView) {
@@ -86,6 +115,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
             tvDesc = itemView.findViewById(R.id.noteDescription);
             tvTotalAmount = itemView.findViewById(R.id.totalPrice);
             contentBlock = itemView.findViewById(R.id.noteBlock);
+            starButton = itemView.findViewById(R.id.ratingNoteList);
 
         }
     }

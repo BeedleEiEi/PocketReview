@@ -26,8 +26,10 @@ public class NoteEntity implements Parcelable {
 
     private String amount;
 
-
     private Float total;
+
+    private int rating;
+
 
     public NoteEntity() {
 
@@ -86,6 +88,14 @@ public class NoteEntity implements Parcelable {
         this.amount = amount;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,6 +109,7 @@ public class NoteEntity implements Parcelable {
         dest.writeString(this.detail);
         dest.writeString(this.amount);
         dest.writeFloat(this.total);
+        dest.writeInt(this.rating);
     }
 
     public NoteEntity(Parcel in) {
@@ -108,6 +119,7 @@ public class NoteEntity implements Parcelable {
         this.detail = in.readString();
         this.amount = in.readString();
         this.total = in.readFloat();
+        this.rating = in.readInt();
     }
 
     public static final Parcelable.Creator<NoteEntity> CREATOR = new Parcelable.Creator<NoteEntity>() {

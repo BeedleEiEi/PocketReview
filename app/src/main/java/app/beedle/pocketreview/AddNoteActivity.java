@@ -96,6 +96,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         noteEntity.setDetail(detail.getText().toString());
         noteEntity.setAmount(value.getText().toString());
         addTotalprice(noteEntity); //Set total Price
+        noteEntity.setRating(0);
         return noteEntity;
     }
 

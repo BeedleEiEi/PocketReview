@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +38,13 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private Intent intent;
-    private ImageButton deleteNote;
+    private ImageButton deleteNote, ratingStar;
     private Button doneBtn;
-    private TextView totalPrice;
+    private TextView totalPrice, txtRatingValue;
     private EditText titleName, description, detail, value;
+    private RatingBar ratingBar;
     private float amount = 0;
+    private int rating;
     String tempDetail = "";
     String tempName = "";
     String tempDescription = "";
@@ -59,6 +63,9 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         value = findViewById(R.id.valueEditNote);
         totalPrice = findViewById(R.id.totalPriceEdit);
         deleteNote = findViewById(R.id.deleteNote);
+        ratingStar = findViewById(R.id.ratingStar);
+
+
         doneBtn = findViewById(R.id.doneBtnEditNote);
 
         deleteNote.setOnClickListener(this);
@@ -74,6 +81,10 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         tempDescription = noteEntity.getDesc();
         tempDetail = noteEntity.getDetail();
         tempPrice = noteEntity.getAmount();
+        rating = noteEntity.getRating();
+
+        //Listener RatingBar
+        //
 
 
         String[] text = tempPrice.split("\n");
@@ -103,7 +114,34 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         detail.setText(tempDetail);
         value.setText(tempPrice);
         totalPrice.setText(amount + ""); //Can add Currency here
+        setStar();
 
+    }
+
+    private void setStar() {
+        int star = 0;
+        star = rating;
+        ratingStar.setBackgroundColor(Color.parseColor("#FFD700"));
+        switch (star) {
+            case 1:
+                ratingStar.setImageResource(R.drawable.one_star);
+                break;
+            case 2:
+                ratingStar.setImageResource(R.drawable.two_star);
+                break;
+            case 3:
+                ratingStar.setImageResource(R.drawable.three_star);
+                break;
+            case 4:
+                ratingStar.setImageResource(R.drawable.four_star);
+                break;
+            case 5:
+                ratingStar.setImageResource(R.drawable.five_star);
+                break;
+            default:
+                break;
+
+        }
     }
 
 
@@ -168,6 +206,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         noteEntity.setDetail(detail.getText().toString());
         noteEntity.setAmount(value.getText().toString());
         noteEntity.setTotal(amount); // Set total price
+        noteEntity.setRating(rating); //Set rating star
         return noteEntity;
     }
 
@@ -183,4 +222,63 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         noteEntity = saveNoteRecord();
         UpdateNote(noteEntity);
     }
+
+    public void setRatingStar(View view) {
+        System.out.println("Clicked Rating");
+        ratingDialog();
+    }
+
+    private void ratingDialog() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final RatingBar ratingBar = new RatingBar(this);
+        ratingBar.setNumStars(5);
+        ratingBar.setMax(5);
+        ratingBar.setRating(0);
+
+        alertDialog.setIcon(android.R.drawable.btn_star_big_on);
+        alertDialog.setTitle("Rating Trip!");
+        alertDialog.setView(ratingBar);
+        alertDialog.setCancelable(true).setNeutralButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ratingBar.setNumStars(5);
+                int star = 0;
+                star = ratingBar.getProgress();
+                ratingStar.setBackgroundColor(Color.parseColor("#FFD700"));
+                switch (star) {
+                    case 1:
+                        ratingStar.setImageResource(R.drawable.one_star);
+                        break;
+                    case 2:
+                        ratingStar.setImageResource(R.drawable.two_star);
+                        break;
+                    case 3:
+                        ratingStar.setImageResource(R.drawable.three_star);
+                        break;
+                    case 4:
+                        ratingStar.setImageResource(R.drawable.four_star);
+                        break;
+                    case 5:
+                        ratingStar.setImageResource(R.drawable.five_star);
+                        break;
+                    default:
+                        break;
+
+                }
+                rating = star;
+                dialog.dismiss();
+                System.out.println(" >>>> this is rate : " + star);
+
+            }
+
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.create();
+        alertDialog.show().getWindow().setLayout(700, 700);
+    }
+
 }
