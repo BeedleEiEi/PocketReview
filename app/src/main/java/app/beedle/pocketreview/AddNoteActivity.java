@@ -64,10 +64,27 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_note);
         ButterKnife.bind(this);
         deleteBtn.setOnClickListener(this);
+        setSpinnerItem();
+        setToolbar();
+        setDB();
 
+    }
+
+    private void setDB() {
+        noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
+    }
+
+    private void setToolbar() {
+        Toolbar tbMain = findViewById(R.id.tbAddNote);
+        setSupportActionBar(tbMain);
+        getSupportActionBar().setTitle("Pocket Review");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tbMain.setNavigationIcon(getResources().getDrawable(R.drawable.ic_navigate_before_black_24px));
+    }
+
+    private void setSpinnerItem() {
         //Spinner
         MaterialSpinner spinner = findViewById(R.id.spinner);
-
         spinner.setItems(name);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
@@ -78,19 +95,8 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_SHORT).show();
             }
         });
-
         //End Spinner
-
-        Toolbar tbMain = findViewById(R.id.tbAddNote);
-        setSupportActionBar(tbMain);
-        getSupportActionBar().setTitle("Pocket Review");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tbMain.setNavigationIcon(getResources().getDrawable(R.drawable.ic_navigate_before_black_24px));
-
-
-        noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private void insertNote(final NoteEntity noteEntity) {
@@ -128,7 +134,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         }
         noteEntity.setTotal(amount);
     }
-
 
     @OnClick(R.id.doneBtn)
     public void saveNoteAndGotoList() {
