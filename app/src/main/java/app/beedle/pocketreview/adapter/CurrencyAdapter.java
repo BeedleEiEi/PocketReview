@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import app.beedle.pocketreview.CurrencyItemClickListener;
-import app.beedle.pocketreview.CurrencyTab;
+import app.beedle.pocketreview.listener.CurrencyItemClickListener;
 import app.beedle.pocketreview.R;
 import app.beedle.pocketreview.model.Currency;
 

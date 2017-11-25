@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.Activity;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+
+import app.beedle.pocketreview.R;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity {

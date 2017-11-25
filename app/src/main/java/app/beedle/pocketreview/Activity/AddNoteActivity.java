@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.Activity;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import app.beedle.pocketreview.entity.NoteDatabase;
-import app.beedle.pocketreview.entity.NoteEntity;
+import app.beedle.pocketreview.R;
+import app.beedle.pocketreview.model.entity.NoteDatabase;
+import app.beedle.pocketreview.model.entity.NoteEntity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

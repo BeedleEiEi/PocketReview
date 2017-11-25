@@ -1,10 +1,12 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.Activity;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+
+import app.beedle.pocketreview.R;
 
 public class LocationTab extends Activity {
 

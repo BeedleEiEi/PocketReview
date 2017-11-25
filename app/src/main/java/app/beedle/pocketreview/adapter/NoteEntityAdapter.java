@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import app.beedle.pocketreview.entity.NoteEntity;
+import app.beedle.pocketreview.listener.NoteEntityItemClickListener;
+import app.beedle.pocketreview.R;
+import app.beedle.pocketreview.model.entity.NoteEntity;
 
 /**
  * Created by Beedle on 18/11/2560.
@@ -39,8 +41,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     public void setNoteEntityList(List<NoteEntity> noteEntityList) {
         this.noteEntityList = noteEntityList;
     }
-
-
+    
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_tab_item, parent, false);
@@ -50,6 +51,10 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        setDetail(position);
+    }
+
+    private void setDetail(final int position) {
         final NoteEntity noteEntity = noteEntityList.get(position);
         if (position % 2 == 0) {
             viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FFE4E1"));
@@ -62,15 +67,13 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(noteEntity.getName() + " >>>> FROM NOTE Adapter");
-
                 listener.onClickNoteEntityItem(noteEntity);
             }
         });
     }
 
     private void selectImageStar(NoteEntity noteEntity) {
-        int star = 0;
+        int star;
         star = noteEntity.getRating();
         viewHolder.starButton.setBackgroundColor(Color.parseColor("#FFD700"));
         switch (star) {
@@ -111,12 +114,15 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
+            setBinding();
+        }
+
+        private void setBinding() {
             tvTitleName = itemView.findViewById(R.id.noteName);
             tvDesc = itemView.findViewById(R.id.noteDescription);
             tvTotalAmount = itemView.findViewById(R.id.totalPrice);
             contentBlock = itemView.findViewById(R.id.noteBlock);
             starButton = itemView.findViewById(R.id.ratingNoteList);
-
         }
     }
 

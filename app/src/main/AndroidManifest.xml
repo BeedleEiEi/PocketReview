@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,16 +25,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CurrencyTab"
+            android:name=".Activity.CurrencyTab"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".PocketNoteTab"
+            android:name=".Activity.PocketNoteTab"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".LocationTab"
+            android:name=".Activity.LocationTab"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".AddNoteActivity" />
-        <activity android:name=".EditNoteActivity" />
+        <activity
+            android:name=".Activity.AddNoteActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity.EditNoteActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>

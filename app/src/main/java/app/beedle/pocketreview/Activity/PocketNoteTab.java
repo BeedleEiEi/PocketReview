@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.Activity;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
@@ -22,10 +22,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.beedle.pocketreview.entity.NoteDatabase;
-import app.beedle.pocketreview.entity.NoteEntity;
-
-import static app.beedle.pocketreview.MainActivity.REQUEST_CODE;
+import app.beedle.pocketreview.adapter.NoteEntityAdapter;
+import app.beedle.pocketreview.listener.NoteEntityItemClickListener;
+import app.beedle.pocketreview.R;
+import app.beedle.pocketreview.model.entity.NoteDatabase;
+import app.beedle.pocketreview.model.entity.NoteEntity;
 
 public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemClickListener {
     private List<NoteEntity> noteEntityList;
@@ -50,35 +51,44 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_pocket_note_tab);
-        drawerLayout = findViewById(R.id.drawer_pocket_tab);
-        navigationView = findViewById(R.id.navigationView);
-        recyclerView = findViewById(R.id.recycler_view);
-        Toolbar tbMain = findViewById(R.id.tbPocket);
-        setSupportActionBar(tbMain);
-        getSupportActionBar().setTitle("Pocket Review");
+        setBinding();
+        setToolbar();
+        setDB();
+        setView();
+        loadNote();
 
+    }
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setDrawerContent(navigationView);
-
-        noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
-        noteEntityList = new ArrayList<>();
-
-
+    private void setView() {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NoteEntityAdapter(this, noteEntityList);
         recyclerView.setAdapter(adapter);
-        loadNote();
-
     }
 
+    private void setDB() {
+        noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
+        noteEntityList = new ArrayList<>();
+    }
+
+    private void setToolbar() {
+        Toolbar tbMain = findViewById(R.id.tbPocket);
+        setSupportActionBar(tbMain);
+        getSupportActionBar().setTitle("Pocket Review");
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setDrawerContent(navigationView);
+    }
+
+    private void setBinding() {
+        drawerLayout = findViewById(R.id.drawer_pocket_tab);
+        navigationView = findViewById(R.id.navigationView);
+        recyclerView = findViewById(R.id.recycler_view);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,7 +101,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent addNoteIntent = new Intent(PocketNoteTab.this, AddNoteActivity.class);
-                startActivityForResult(addNoteIntent, REQUEST_CODE);
+                startActivityForResult(addNoteIntent, MainActivity.REQUEST_CODE);
                 break;
             case R.id.action_remove_all_note:
                 alertDialog();
@@ -102,7 +112,6 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
         return true;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,14 +145,10 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        //get note list  here ....
-
     }
-
 
     private void alertDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

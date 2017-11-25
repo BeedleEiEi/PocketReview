@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.listener;
 
 import app.beedle.pocketreview.model.Currency;
 

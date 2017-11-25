@@ -1,4 +1,4 @@
-package app.beedle.pocketreview;
+package app.beedle.pocketreview.Activity;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
@@ -25,8 +25,9 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.beedle.pocketreview.entity.NoteDatabase;
-import app.beedle.pocketreview.entity.NoteEntity;
+import app.beedle.pocketreview.R;
+import app.beedle.pocketreview.model.entity.NoteDatabase;
+import app.beedle.pocketreview.model.entity.NoteEntity;
 
 public class EditNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,11 +46,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private EditText titleName, description, detail, value;
     private float amount = 0;
     private int rating;
-    private String nCurrency;
-    String tempDetail = "";
-    String tempName = "";
-    String tempDescription = "";
-    String tempPrice = "";
+    private String nCurrency, tempDetail = "", tempName = "", tempDescription = "", tempPrice = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

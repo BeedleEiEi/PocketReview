@@ -1,4 +1,4 @@
-package app.beedle.pocketreview.entity;
+package app.beedle.pocketreview.model.entity;
 
 /**
  * Created by Beedle on 18/11/2560.

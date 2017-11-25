@@ -1,4 +1,4 @@
-package app.beedle.pocketreview.entity;
+package app.beedle.pocketreview.model.entity;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
