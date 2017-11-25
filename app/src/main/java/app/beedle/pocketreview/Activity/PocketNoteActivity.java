@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +21,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +46,7 @@ public class PocketNoteActivity extends AppCompatActivity implements NoteEntityI
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Bitmap bitmap;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -57,6 +66,46 @@ public class PocketNoteActivity extends AppCompatActivity implements NoteEntityI
         setView();
         loadNote();
 
+    }
+
+    public Bitmap createBitmapFromView(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+        view.draw(c);
+        return bitmap;
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        // save bitmap to cache directory
+        try {
+            //Context correct?
+            File cachePath = new File(getApplicationContext().getCacheDir(), "images");
+            cachePath.mkdirs(); // don't forget to make the directory
+            FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void shareNote() {
+        bitmap = createBitmapFromView(this.getWindow().getDecorView());
+        saveBitmap(bitmap);
+        File imagePath = new File(getCacheDir(), "images");
+        File newFile = new File(imagePath, "image.png");
+        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "app.beedle.pocketreview.fileprovider", newFile); //get path from package internal
+        if (contentUri != null) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+            intent.putExtra(Intent.EXTRA_STREAM, contentUri);
+            startActivity(Intent.createChooser(intent, "Share to app"));
+        }
     }
 
     private void setView() {
@@ -91,7 +140,6 @@ public class PocketNoteActivity extends AppCompatActivity implements NoteEntityI
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("Clicked !!!");
         int id = item.getItemId();
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -103,6 +151,9 @@ public class PocketNoteActivity extends AppCompatActivity implements NoteEntityI
                 break;
             case R.id.action_remove_all_note:
                 alertDialog();
+                break;
+            case R.id.share_listNote:
+                shareNote();
                 break;
         }
         return true;
@@ -205,6 +256,10 @@ public class PocketNoteActivity extends AppCompatActivity implements NoteEntityI
                 break;
             case R.id.locationMenu:
                 intent = new Intent(PocketNoteActivity.this, LocationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.HelpMenu:
+                intent = new Intent(PocketNoteActivity.this, HelpActivity.class);
                 startActivity(intent);
                 break;
             default:

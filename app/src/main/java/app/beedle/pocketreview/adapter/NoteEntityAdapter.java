@@ -41,7 +41,7 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     public void setNoteEntityList(List<NoteEntity> noteEntityList) {
         this.noteEntityList = noteEntityList;
     }
-    
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_tab_item, parent, false);
@@ -60,7 +60,12 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
             viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FFE4E1"));
         }
         viewHolder.tvTitleName.setText(noteEntity.getName());
-        viewHolder.tvDesc.setText(noteEntity.getDesc());
+
+        if (noteEntity.getDesc().length() >= 50) {
+            viewHolder.tvDesc.setText(noteEntity.getDesc().subSequence(0, 49) + "...");
+        } else {
+            viewHolder.tvDesc.setText(noteEntity.getDesc());
+        }
         viewHolder.tvTotalAmount.setText(noteEntity.getTotal().toString() + " " + noteEntity.getCurrency());
         selectImageStar(noteEntity);
 

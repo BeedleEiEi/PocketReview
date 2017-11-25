@@ -17,4 +17,13 @@
         android:title="@string/action_addNote"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/share_listNote"
+        android:icon="@drawable/book"
+        android:orderInCategory="90"
+        android:title="Share"
+        app:showAsAction="never">
+
+    </item>
+
 </menu>
