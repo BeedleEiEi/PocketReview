@@ -66,7 +66,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         deleteBtn.setOnClickListener(this);
 
         //Spinner
-        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
+        MaterialSpinner spinner = findViewById(R.id.spinner);
 
         spinner.setItems(name);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -84,7 +84,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         Toolbar tbMain = findViewById(R.id.tbAddNote);
         setSupportActionBar(tbMain);
         getSupportActionBar().setTitle("Pocket Review");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tbMain.setNavigationIcon(getResources().getDrawable(R.drawable.ic_navigate_before_black_24px));
 
@@ -154,7 +153,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                /*Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);*/
             }
         });
         alertDialog.create();
@@ -163,7 +161,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        System.out.println("Clicked Delete");
         alertDialog(); //Delete Alert
     }
 

@@ -28,9 +28,7 @@ import app.beedle.pocketreview.entity.NoteEntity;
 import static app.beedle.pocketreview.MainActivity.REQUEST_CODE;
 
 public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemClickListener {
-    private static final int RESULT_UPDATE = 40;
     private List<NoteEntity> noteEntityList;
-    private NoteEntity noteEntity;
     private NoteDatabase noteDatabase;
 
     private RecyclerView recyclerView;

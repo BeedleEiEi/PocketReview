@@ -35,6 +35,8 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
                     android:src="@drawable/logo" />
 
                 <LinearLayout
@@ -46,6 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text="@string/add_note_page"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/White" />
@@ -58,6 +61,8 @@
 
         <ImageButton
             android:id="@+id/deleteNote"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             android:layout_width="39dp"
             android:layout_height="38dp"
             android:layout_marginBottom="16dp"
@@ -204,7 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="66dp"
             android:background="@color/Wheat"
             android:orientation="vertical"
             app:layout_constraintRight_toRightOf="parent"
@@ -212,6 +217,7 @@
 
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spinner"
+                app:ms_background_color="@color/DodgerBlue"
                 android:layout_width="80dp"
                 android:layout_height="24dp" />
 

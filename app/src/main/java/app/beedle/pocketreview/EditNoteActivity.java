@@ -25,16 +25,13 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.beedle.pocketreview.adapter.NoteDetailAdapter;
 import app.beedle.pocketreview.entity.NoteDatabase;
 import app.beedle.pocketreview.entity.NoteEntity;
-import app.beedle.pocketreview.model.NoteEntityDetail;
 
 public class EditNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private NoteDatabase noteDatabase;
-    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static final int RESULT_UPDATE = 40;
     private String[] name = {"AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"};
@@ -44,9 +41,8 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private Intent intent;
     private ImageButton deleteNote, ratingStar;
     private Button doneBtn;
-    private TextView totalPrice, txtRatingValue, tvCurrencyName;
+    private TextView totalPrice, tvCurrencyName;
     private EditText titleName, description, detail, value;
-    private RatingBar ratingBar;
     private float amount = 0;
     private int rating;
     private String nCurrency;
@@ -54,13 +50,21 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     String tempName = "";
     String tempDescription = "";
     String tempPrice = "";
-    private NoteEntityDetail noteEntityDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
 
+        bindingID();
+        setListenerDelete();
+        setTempDetailEntity();
+        setSpinnerItem();
+        setDetail();
+    }
+
+    private void bindingID() {
+        //Layout Inflate
         layoutManager = new LinearLayoutManager(this);
         titleName = findViewById(R.id.titleNameEditNote);
         description = findViewById(R.id.tvTripDesctiptionEditNote);
@@ -70,19 +74,22 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         deleteNote = findViewById(R.id.deleteNote);
         ratingStar = findViewById(R.id.ratingStar);
         tvCurrencyName = findViewById(R.id.tvCurrencyName);
-
-
         doneBtn = findViewById(R.id.doneBtnEditNote);
+    }
 
+    private void setListenerDelete() {
         deleteNote.setOnClickListener(this);
+    }
+
+    private void setTempDetailEntity() {
+        //Get DB
         noteDatabase = Room.databaseBuilder(this, NoteDatabase.class, "NOTE").build();
+        //Initial Entity
         noteEntityList = new ArrayList<>();
         noteEntity = new NoteEntity();
         intent = getIntent();
         //Get intent from Item selected contain NoteEntity Object in it
         noteEntity = intent.getParcelableExtra("NoteInformation");//NoteEntity in this parcelable
-
-
         tempName = noteEntity.getName();
         tempDescription = noteEntity.getDesc();
         tempDetail = noteEntity.getDetail();
@@ -90,10 +97,10 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         rating = noteEntity.getRating();
         nCurrency = noteEntity.getCurrency();
         tvCurrencyName.setText(noteEntity.getCurrency());
+    }
 
-        //Spinner
-        MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
-
+    private void setSpinnerItem() {
+        MaterialSpinner spinner = findViewById(R.id.spinner);
         spinner.setItems(name);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
@@ -106,32 +113,14 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         //End Spinner
-
-        //Listener RatingBar
-        //
-
-
-        String[] text = tempPrice.split("\n");
-
-        System.out.println("------------PRICE LOOP-------------");
-        for (int i = 0; i < text.length; i++) {
-            amount += Float.parseFloat(text[i]);
-        }
-
-        System.out.println(amount + " <<<<<<<< Amount");
-        System.out.println("---------------------------------");
-        System.out.println(tempName);
-        System.out.println(tempDescription);
-        System.out.println(tempDetail);
-        System.out.println(tempPrice);
-        System.out.println("---------------------------------");
-
-        setDetail();
     }
-
 
     private void setDetail() {
         //Set Text on screen
+        String[] text = tempPrice.split("\n");
+        for (int i = 0; i < text.length; i++) {
+            amount += Float.parseFloat(text[i]);
+        }
         String nCurrency = noteEntity.getCurrency();
         titleName.setText(tempName);
         description.setText(tempDescription);
@@ -143,7 +132,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setStar() {
-        int star = 0;
+        int star;
         star = rating;
         ratingStar.setBackgroundColor(Color.parseColor("#FFD700"));
         switch (star) {
@@ -167,7 +156,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private void deleteNote() {
@@ -204,7 +192,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         alertDialog.create();
         alertDialog.show();
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private void UpdateNote(final NoteEntity noteEntity) {
@@ -249,7 +236,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void setRatingStar(View view) {
-        System.out.println("Clicked Rating");
         ratingDialog();
     }
 
@@ -292,7 +278,6 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
                 }
                 rating = star;
                 dialog.dismiss();
-                System.out.println(" >>>> this is rate : " + star);
 
             }
 
