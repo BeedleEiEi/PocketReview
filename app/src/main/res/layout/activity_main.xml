@@ -25,14 +25,17 @@
 
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/menuIcon"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/locationIcon"
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_marginTop="152dp"
-            android:background="@color/IndianRed"
+            android:background="@color/MediumPurple"
+            android:onClick="changePage"
             android:src="@drawable/ic_location_on_black_24px"
             app:layout_constraintHorizontal_bias="0.891"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -40,10 +43,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/currencyIcon"
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_marginTop="152dp"
-            android:background="@color/DarkGreen"
+            android:background="@color/LightPink"
+            android:onClick="changePage"
             android:src="@drawable/ic_attach_money_black_24px"
             app:layout_constraintHorizontal_bias="0.146"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -51,11 +56,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="65dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginTop="268dp"
+            android:id="@+id/pocketIcon"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="152dp"
+            android:layout_marginTop="152dp"
             android:background="@color/CornflowerBlue"
+            android:onClick="changePage"
             android:src="@drawable/ic_note_black_24px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
