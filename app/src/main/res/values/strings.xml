@@ -23,4 +23,6 @@
     <string name="FragmentPocket">pocket_fragment</string>
     <string name="CurrencyFragment">currency_fragment</string>
     <string name="LocationFragment">location_fragment</string>
+    <string name="coming_soon">This feature will coming soon!</string>
+    <string name="location">Location</string>
 </resources>

@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_location_on_black_24px"
         android:title="Location" />
 
+    <item
+        android:id="@+id/HelpMenu"
+        android:icon="@drawable/help"
+        android:title="Help"></item>
+
 </menu>

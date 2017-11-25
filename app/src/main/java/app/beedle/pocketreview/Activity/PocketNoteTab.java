@@ -95,7 +95,6 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
         System.out.println("Clicked !!!");
         int id = item.getItemId();
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            Toast.makeText(this, "Menu " + item.getTitle() + " has been selected", Toast.LENGTH_LONG).show();
             return true;
         }
         switch (item.getItemId()) {
@@ -107,9 +106,6 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
                 alertDialog();
                 break;
         }
-
-        Toast.makeText(this, "Menu " + item.getTitle() + " has been selected", Toast.LENGTH_LONG).show();
-
         return true;
     }
 

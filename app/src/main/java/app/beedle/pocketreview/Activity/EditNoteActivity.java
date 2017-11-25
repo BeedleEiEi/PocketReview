@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +26,9 @@ import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +48,14 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private NoteEntity noteEntity;
     private Intent intent;
     private ImageButton deleteNote, ratingStar;
-    private Button doneBtn;
+    private Button doneBtn, shareBtn;
     private TextView totalPrice, tvCurrencyName;
     private EditText titleName, description, detail, value;
     private float amount = 0;
     private int rating;
     private String nCurrency, tempDetail = "", tempName = "", tempDescription = "", tempPrice = "";
+    private Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,47 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         setTempDetailEntity();
         setSpinnerItem();
         setDetail();
+    }
+
+
+    public Bitmap createBitmapFromView(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+        view.draw(c);
+        return bitmap;
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        // save bitmap to cache directory
+        try {
+            //Context correct?
+            File cachePath = new File(getApplicationContext().getCacheDir(), "images");
+            cachePath.mkdirs(); // don't forget to make the directory
+            FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void shareNote() {
+        bitmap = createBitmapFromView(this.getWindow().getDecorView());
+        saveBitmap(bitmap);
+        File imagePath = new File(getCacheDir(), "images");
+        File newFile = new File(imagePath, "image.png");
+        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "app.beedle.pocketreview.fileprovider", newFile); //get path from package internal
+        if (contentUri != null) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+            intent.putExtra(Intent.EXTRA_STREAM, contentUri);
+            startActivity(Intent.createChooser(intent, "Share to app"));
+        }
     }
 
     private void bindingID() {
@@ -72,6 +122,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         ratingStar = findViewById(R.id.ratingStar);
         tvCurrencyName = findViewById(R.id.tvCurrencyName);
         doneBtn = findViewById(R.id.doneBtnEditNote);
+        shareBtn = findViewById(R.id.shareBtn);
     }
 
     private void setListenerDelete() {
@@ -288,4 +339,8 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         alertDialog.show().getWindow().setLayout(700, 700);
     }
 
+
+    public void shareClick(View view) {
+        shareNote();
+    }
 }
