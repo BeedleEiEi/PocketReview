@@ -19,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CurrencyTab extends AppCompatActivity implements Callback<CurrencyExchange>, CurrencyItemClickListener {
+public class CurrencyActivity extends AppCompatActivity implements Callback<CurrencyExchange>, CurrencyItemClickListener {
 
     private ListView lvCurrency;
 
@@ -70,8 +70,8 @@ public class CurrencyTab extends AppCompatActivity implements Callback<CurrencyE
 
     @Override
     public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response) {
-        //Toast.makeText(this, response.body().getBase(), Toast.LENGTH_LONG).show();
         CurrencyExchange currencyExchange = response.body();
+
         lvCurrency.setAdapter(new CurrencyAdapter(this, currencyExchange.getCurrencyList(), this));
     }
 

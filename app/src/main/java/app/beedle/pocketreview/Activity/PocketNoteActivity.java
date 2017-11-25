@@ -17,7 +17,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ import app.beedle.pocketreview.R;
 import app.beedle.pocketreview.model.entity.NoteDatabase;
 import app.beedle.pocketreview.model.entity.NoteEntity;
 
-public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemClickListener {
+public class PocketNoteActivity extends AppCompatActivity implements NoteEntityItemClickListener {
     private List<NoteEntity> noteEntityList;
     private NoteDatabase noteDatabase;
 
@@ -99,7 +98,7 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
         }
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent addNoteIntent = new Intent(PocketNoteTab.this, AddNoteActivity.class);
+                Intent addNoteIntent = new Intent(PocketNoteActivity.this, AddNoteActivity.class);
                 startActivityForResult(addNoteIntent, MainActivity.REQUEST_CODE);
                 break;
             case R.id.action_remove_all_note:
@@ -197,15 +196,15 @@ public class PocketNoteTab extends AppCompatActivity implements NoteEntityItemCl
 
         switch (item.getItemId()) {
             case R.id.mainMenuTab:
-                intent = new Intent(PocketNoteTab.this, MainActivity.class);
+                intent = new Intent(PocketNoteActivity.this, MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.currencyTabMenu:
-                intent = new Intent(PocketNoteTab.this, CurrencyTab.class);
+                intent = new Intent(PocketNoteActivity.this, CurrencyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.locationMenu:
-                intent = new Intent(PocketNoteTab.this, LocationTab.class);
+                intent = new Intent(PocketNoteActivity.this, LocationActivity.class);
                 startActivity(intent);
                 break;
             default:

@@ -73,15 +73,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.pocketTabMenu:
-                intent = new Intent(MainActivity.this, PocketNoteTab.class);
+                intent = new Intent(MainActivity.this, PocketNoteActivity.class);
                 startActivity(intent);
                 break;
             case R.id.currencyTabMenu:
-                intent = new Intent(MainActivity.this, CurrencyTab.class);
+                intent = new Intent(MainActivity.this, CurrencyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.locationMenu:
-                intent = new Intent(MainActivity.this, LocationTab.class);
+                intent = new Intent(MainActivity.this, LocationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.HelpMenu:
+                intent = new Intent(MainActivity.this, HelpActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -118,15 +122,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.pocketIcon:
-                intent = new Intent(MainActivity.this, PocketNoteTab.class);
+                intent = new Intent(MainActivity.this, PocketNoteActivity.class);
                 startActivity(intent);
                 break;
             case R.id.currencyIcon:
-                intent = new Intent(MainActivity.this, CurrencyTab.class);
+                intent = new Intent(MainActivity.this, CurrencyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.locationIcon:
-                intent = new Intent(MainActivity.this, LocationTab.class);
+                intent = new Intent(MainActivity.this, LocationActivity.class);
                 startActivity(intent);
                 break;
             default:

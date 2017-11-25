@@ -25,7 +25,6 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
-
         </provider>
 
         <activity
@@ -38,13 +37,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.CurrencyTab"
+            android:name=".Activity.CurrencyActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".Activity.PocketNoteTab"
+            android:name=".Activity.PocketNoteActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".Activity.LocationTab"
+            android:name=".Activity.LocationActivity"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".Activity.AddNoteActivity"
@@ -52,6 +51,7 @@
         <activity
             android:name=".Activity.EditNoteActivity"
             android:configChanges="orientation|screenSize" />
+        <activity android:name=".Activity.HelpActivity"></activity>
     </application>
 
 </manifest>

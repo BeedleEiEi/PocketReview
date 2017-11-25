@@ -144,7 +144,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void gotoNoteList() {
-        Intent intent = new Intent(AddNoteActivity.this, PocketNoteTab.class);
+        Intent intent = new Intent(AddNoteActivity.this, PocketNoteActivity.class);
         startActivity(intent);
     }
 

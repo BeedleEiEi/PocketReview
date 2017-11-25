@@ -7,7 +7,7 @@ import android.view.MenuInflater;
 
 import app.beedle.pocketreview.R;
 
-public class LocationTab extends AppCompatActivity {
+public class LocationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

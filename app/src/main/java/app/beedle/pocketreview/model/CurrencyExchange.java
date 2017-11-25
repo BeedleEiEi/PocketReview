@@ -55,6 +55,7 @@ public class CurrencyExchange {
 
     public List<Currency> getCurrencyList() {
         List<Currency> currencyList = new ArrayList<>();
+        setBase("THB");
         currencyList.add(new Currency("THB", rates.getTHB()));
         currencyList.add(new Currency("USD", rates.getUSD()));
         currencyList.add(new Currency("AUD", rates.getAUD()));

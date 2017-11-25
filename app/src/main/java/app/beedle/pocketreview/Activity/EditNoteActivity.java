@@ -253,7 +253,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected void onPostExecute(NoteEntity noteEntity) {
                 Toast.makeText(EditNoteActivity.this, "Note has been Updated", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EditNoteActivity.this, PocketNoteTab.class);
+                Intent intent = new Intent(EditNoteActivity.this, PocketNoteActivity.class);
                 startActivityForResult(intent, RESULT_UPDATE);
             }
         }.execute();
