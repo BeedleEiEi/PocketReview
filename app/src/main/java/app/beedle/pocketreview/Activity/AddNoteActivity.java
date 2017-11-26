@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -52,6 +53,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
     private String[] name = {"AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"};
     private String nCurrency;
+    private boolean statusErr = false;
 
     @Override
     public MenuInflater getMenuInflater() {
@@ -115,8 +117,16 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         noteEntity.setName(titleName.getText().toString());
         noteEntity.setDesc(desc.getText().toString());
         noteEntity.setDetail(detail.getText().toString());
-        noteEntity.setAmount(value.getText().toString());
+        if (value.getText() == null) {
+            noteEntity.setAmount("0");
+        } else {
+            noteEntity.setAmount(value.getText().toString());
+        }
+
+
         addTotalprice(noteEntity); //Set total Price
+
+
         noteEntity.setRating(0);
         if (nCurrency == null || nCurrency.equals("currency")) {
             noteEntity.setCurrency("");
@@ -129,18 +139,32 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     private void addTotalprice(NoteEntity noteEntity) {
         String[] text = noteEntity.getAmount().split("\n");
         float amount = 0;
-
-        for (int i = 0; i < text.length; i++) {
-            amount += Float.parseFloat(text[i]);
+        try {
+            if (text.length <= 1 && text[0] == "") {
+                noteEntity.setTotal((float) 0);
+            } else {
+                for (int i = 0; i < text.length; i++) {
+                    amount += Float.parseFloat(text[i]);
+                }
+                noteEntity.setTotal(amount);
+            }
+        } catch (NumberFormatException e) {
+            noteEntity.setAmount("0");
+            statusErr = true;
+            e.printStackTrace();
         }
-        noteEntity.setTotal(amount);
     }
 
     @OnClick(R.id.doneBtn)
     public void saveNoteAndGotoList() {
         NoteEntity noteEntity = saveNoteRecord();
-        insertNote(noteEntity);
-        gotoNoteList();
+        if (statusErr == true) {
+            statusErr = false;
+            Toast.makeText(this, "Wrong number format, Please fill correct number", Toast.LENGTH_SHORT).show();
+        } else {
+            insertNote(noteEntity);
+            gotoNoteList();
+        }
     }
 
     public void gotoNoteList() {

@@ -55,12 +55,20 @@ public class NoteEntityAdapter extends RecyclerView.Adapter<NoteEntityAdapter.Vi
     }
 
     private void setDetail(final int position) {
+        setCondition(position);
+
+    }
+
+    private void setCondition(final int position) {
         final NoteEntity noteEntity = noteEntityList.get(position);
         if (position % 2 == 0) {
             viewHolder.contentBlock.setBackgroundColor(Color.parseColor("#FFE4E1"));
         }
-        viewHolder.tvTitleName.setText(noteEntity.getName());
-
+        if (noteEntity.getName().length() >= 20) {
+            viewHolder.tvTitleName.setText(noteEntity.getName().subSequence(0, 19) + "...");
+        } else {
+            viewHolder.tvTitleName.setText(noteEntity.getName());
+        }
         if (noteEntity.getDesc().length() >= 50) {
             viewHolder.tvDesc.setText(noteEntity.getDesc().subSequence(0, 49) + "...");
         } else {

@@ -43,7 +43,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private RecyclerView.LayoutManager layoutManager;
     private static final int RESULT_UPDATE = 40;
     private String[] name = {"AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR"};
-
+    private boolean statusErr = false;
     private List<NoteEntity> noteEntityList;
     private NoteEntity noteEntity;
     private Intent intent;
@@ -166,17 +166,51 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     private void setDetail() {
         //Set Text on screen
         String[] text = tempPrice.split("\n");
-        for (int i = 0; i < text.length; i++) {
-            amount += Float.parseFloat(text[i]);
+        amount = 0;
+        try {
+            if (text.length <= 1 && (text.length <= 0 || text[0] == "")) {
+                noteEntity.setTotal((float) 0);
+            } else {
+                for (int i = 0; i < text.length; i++) {
+                    amount += Float.parseFloat(text[i]);
+                }
+                noteEntity.setTotal(amount);
+
+            }
+        } catch (NumberFormatException e) {
+            noteEntity.setAmount("0");
+            statusErr = true;
+            e.printStackTrace();
         }
         String nCurrency = noteEntity.getCurrency();
         titleName.setText(tempName);
         description.setText(tempDescription);
         detail.setText(tempDetail);
         value.setText(tempPrice);
+        amount = noteEntity.getTotal();
         totalPrice.setText("TOTAL: " + amount + " " + nCurrency); //Can add Currency here
         setStar();
 
+    }
+
+    private void addTotalprice(NoteEntity noteEntity) {
+        String[] text = noteEntity.getAmount().split("\n");
+        float amount = 0;
+        try {
+            if (text.length <= 1 && text[0] == "") {
+                noteEntity.setTotal((float) 0);
+            } else {
+                for (int i = 0; i < text.length; i++) {
+                    amount += Float.parseFloat(text[i]);
+                }
+                tempPrice = noteEntity.getAmount();
+                noteEntity.setTotal(amount);
+            }
+        } catch (NumberFormatException e) {
+            noteEntity.setAmount("0");
+            statusErr = true;
+            e.printStackTrace();
+        }
     }
 
     private void setStar() {
@@ -243,6 +277,8 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
 
     @SuppressLint("StaticFieldLeak")
     private void UpdateNote(final NoteEntity noteEntity) {
+
+
         new AsyncTask<Void, Void, NoteEntity>() {
             @Override
             protected NoteEntity doInBackground(Void... voids) {
@@ -264,7 +300,8 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         noteEntity.setDesc(description.getText().toString());
         noteEntity.setDetail(detail.getText().toString());
         noteEntity.setAmount(value.getText().toString());
-        noteEntity.setTotal(amount); // Set total price
+        addTotalprice(noteEntity);
+        noteEntity.setTotal(noteEntity.getTotal()); // Set total price
         noteEntity.setRating(rating); //Set rating star
         noteEntity.setCurrency(nCurrency);
         return noteEntity;
@@ -279,8 +316,13 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void updateNote(View view) {
-        noteEntity = saveNoteRecord();
-        UpdateNote(noteEntity);
+        NoteEntity noteEntity = saveNoteRecord();
+        if (statusErr == true) {
+            statusErr = false;
+            Toast.makeText(this, "Wrong number format, Please fill correct number", Toast.LENGTH_LONG).show();
+        } else {
+            UpdateNote(noteEntity);
+        }
     }
 
     public void setRatingStar(View view) {
