@@ -20,17 +20,19 @@
 
 
     </LinearLayout>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/tvLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="296dp"
-            android:gravity="center_horizontal"
             android:alpha="0.2"
+            android:gravity="center_horizontal"
             android:text="LOADING"
             android:textSize="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +53,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
 
         <android.support.v7.widget.Toolbar
